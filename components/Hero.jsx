@@ -19,11 +19,10 @@ const Hero = ({ isMobile }) => {
           src={!isMobile ? heroBg : mobileHeroBg}
           srcSet={`${heroBg} 1920w, ${mobileHeroBg} 480w`}
         ></Image>
-        <div className='absolute text-center flex flex-col md:items-start items-center ml-16'>
+        <div className='absolute text-center flex flex-col md:items-start items-center justify md:ml-16'>
           <div className='md:text-[3vw] text-[7vw]'>
             <h3>
               Where velocity meets <span className='text-main'>Victory</span>{' '}
-              <br></br>
               Every <span className='text-main'>Stitch</span> a Leap Beyond
             </h3>
           </div>
