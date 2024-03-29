@@ -1,8 +1,8 @@
 'use client';
 import Image from 'next/image';
 import React from 'react';
-import heroBg from '../public/assets/heroBg.jpg';
-import mobileHeroBg from '../public/assets/mobilehero.jpg';
+import heroBg from '../../public/assets/heroBg.jpg';
+import mobileHeroBg from '../../public/assets/mobilehero.jpg';
 import { motion } from 'framer-motion';
 
 const Hero = ({ isMobile }) => {
@@ -20,15 +20,14 @@ const Hero = ({ isMobile }) => {
           srcSet={`${heroBg} 1920w, ${mobileHeroBg} 480w`}
         ></Image>
         <div className='absolute text-center flex flex-col md:items-start items-center justify md:ml-16'>
-          <div className='md:text-[3vw] text-[7vw]'>
-            <h3>
-              Where velocity meets <span className='text-main'>Victory</span>{' '}
-              Every <span className='text-main'>Stitch</span> a Leap Beyond
-            </h3>
+          <div className='md:text-[3vw] text-[7vw] font-semibold text-white font-spartan'>
+            Where velocity meets <span className='text-main'>Victory</span>{' '}
+            {!isMobile && <br></br>}
+            Every <span className='text-main'>Stitch</span> a Leap Beyond
           </div>
 
           <a href='/shop'>
-            <button className='inline-flex font-bold rounded-md items-center px-7 py-6 my-2 text-5xl tracking-tighter bg-white text-black'>
+            <button className='inline-flex font-bold rounded-md items-center px-7 py-6 my-2 text-5xl tracking-tighter bg-white text-black hover:text-main hover:bg-black duration-300'>
               Shop Now
             </button>
           </a>

@@ -1,10 +1,11 @@
 'use client';
-import Featured from '@/components/Featured';
-import '../app/globals.css';
-import HomePage from '@/components/HomePage';
+import '../globals.css';
 import React, { useEffect, useState } from 'react';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
+import CreateAccountDisplay from '../components/CreateAccountDisplay';
 
-const index = () => {
+const page = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -24,9 +25,11 @@ const index = () => {
   }, []);
   return (
     <div>
-      <HomePage isMobile={isMobile} />
+      <NavBar isMobile={isMobile} />
+      <CreateAccountDisplay />
+      <Footer />
     </div>
   );
 };
 
-export default index;
+export default page;

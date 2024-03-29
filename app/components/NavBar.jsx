@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import logoName from '../public/assets/logo.png';
+import logoName from '../../public/assets/logo.png';
 import Image from 'next/image';
 import Cart from './Cart';
 import ToggleButton from './ToggleButton';
@@ -32,7 +32,7 @@ const NavBar = ({ isMobile }) => {
           <a href='/home' className='p-2 text-black group'>
             <h3
               className={`tracking-wider text-2xl ${
-                pathname != '/'
+                pathname != '/home'
                   ? 'hover-underline-animation'
                   : 'border-main border-b-2'
               }`}

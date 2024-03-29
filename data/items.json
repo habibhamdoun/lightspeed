@@ -10,7 +10,7 @@
         "/products/img1.png",
         "/products/img1.png"
     ],
-    "name":"AOT Hoodie",
+    "name":"Hoodie",
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     
     "price": "15.99",
@@ -28,7 +28,7 @@
         "/products/hoodie1.webp",
         "/products/img1.png"
     ],
-    "name":"JJK T-shirt",
+    "name":"T-shirt",
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "1.99",
     "style":"T-shirt",
@@ -44,7 +44,7 @@
         "/products/hoodie1.webp",
         "/products/img1.png"
     ],
-    "name":"Chainsaw man T-shirt",
+    "name":"T-shirt",
 
     
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
@@ -62,7 +62,7 @@
         "/products/hoodie1.webp",
         "/products/img1.png"
     ],
-    "name":"Chainsaw man T-shirt",
+    "name":"T-shirt",
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "12.99",
     "style":"T-shirt",
@@ -78,7 +78,7 @@
         "/products/hoodie1.webp",
         "/products/img1.png"
     ],
-    "name":"Chainsaw man T-shirt",
+    "name":"T-shirt",
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "12.99",
     "style":"T-shirt",
@@ -94,7 +94,7 @@
         "/products/hoodie1.webp",
         "/products/img1.png"
     ],
-    "name":"Chainsaw man T-shirt",
+    "name":"T-shirt",
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "12.99",
     "style":"T-shirt",

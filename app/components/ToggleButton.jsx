@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import sidePanelBtn from '../public/assets/sidePanelBtn.svg';
+import sidePanelBtn from '../../public/assets/sidePanelBtn.svg';
 
 const ToggleButton = ({ onToggle }) => {
   return (

@@ -1,5 +1,5 @@
 'use client';
-import closeBtn from '../public/assets/sidePanelClose.svg';
+import closeBtn from '../../public/assets/sidePanelClose.svg';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
