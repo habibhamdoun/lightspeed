@@ -1,11 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
 
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --color-main:#FFDD5E;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,7 +20,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: black;
+  /* background: black; */
 }
 
 @layer utilities {
@@ -26,3 +28,22 @@ body {
     text-wrap: balance;
   }
 }
+h3{
+  font-family: "League Spartan", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+/* styles.css or in a <style> tag */
+.hover-underline-animation::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: var(--color-main);
+  transition: width 0.5s;
+}
+
+.hover-underline-animation:hover::after {
+  width: 100%;
+}
+

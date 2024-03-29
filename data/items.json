@@ -1,0 +1,106 @@
+[{
+    "id":"1",
+    "img1": "/products/hoodie1.webp",
+    "img2": "/products/img1.png",
+    "images":[
+        "/products/hoodie1.webp",
+        "/products/img1.png",
+        "/products/img1.png",
+        "/products/img1.png",
+        "/products/img1.png",
+        "/products/img1.png"
+    ],
+    "name":"AOT Hoodie",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
+    
+    "price": "15.99",
+    "style":"Hoodie",
+    "badge": "NEW",
+    "featured":true,
+    "date":"11/2/2023"
+    
+},
+{
+    "id":"2",
+    "img1": "/products/hoodie1.webp",
+    "img2": "/products/img1.png",
+    "images":[
+        "/products/hoodie1.webp",
+        "/products/img1.png"
+    ],
+    "name":"JJK T-shirt",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
+    "price": "1.99",
+    "style":"T-shirt",
+    "badge": "none",
+    "featured":true,
+    "date":"11/2/2020"
+},
+{
+    "id":"3",
+    "img1": "/products/hoodie1.webp",
+    "img2": "/products/img1.png",
+    "images":[
+        "/products/hoodie1.webp",
+        "/products/img1.png"
+    ],
+    "name":"Chainsaw man T-shirt",
+
+    
+    "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
+    "price": "12.99",
+    "style":"T-shirt",
+    "badge": "NEW",
+    "featured":false,
+    "date":"11/2/2021"
+},
+{
+    "id":"4",
+    "img1": "/products/hoodie1.webp",
+    "img2": "/products/img1.png",
+    "images":[
+        "/products/hoodie1.webp",
+        "/products/img1.png"
+    ],
+    "name":"Chainsaw man T-shirt",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
+    "price": "12.99",
+    "style":"T-shirt",
+    "badge": "NEW",
+    "featured":false,
+    "date":"11/2/2021"
+},
+{
+    "id":"5",
+    "img1": "/products/hoodie1.webp",
+    "img2": "/products/img1.png",
+    "images":[
+        "/products/hoodie1.webp",
+        "/products/img1.png"
+    ],
+    "name":"Chainsaw man T-shirt",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
+    "price": "12.99",
+    "style":"T-shirt",
+    "badge": "NEW",
+    "featured":false,
+    "date":"11/2/2021"
+},
+{
+    "id":"6",
+    "img1": "/products/hoodie1.webp",
+    "img2": "/products/img1.png",
+    "images":[
+        "/products/hoodie1.webp",
+        "/products/img1.png"
+    ],
+    "name":"Chainsaw man T-shirt",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
+    "price": "12.99",
+    "style":"T-shirt",
+    "badge": "NEW",
+    "featured":false,
+    "date":"11/2/2021"
+}
+    
+]
