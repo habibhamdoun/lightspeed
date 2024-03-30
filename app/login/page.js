@@ -4,7 +4,7 @@ import '../globals.css';
 import HomePage from '@/app/components/HomePage';
 import React, { useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
-import LoginDisplay from '../components/loginDisplay';
+import LoginDisplay from '../components/LoginDisplay.jsx';
 import Footer from '../components/Footer';
 
 const page = () => {
