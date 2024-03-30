@@ -4,6 +4,7 @@ import React from 'react';
 import fb from '../../public/assets/facebookIcon.svg';
 import insta from '../../public/assets/insatgramIcon.svg';
 import tiktok from '../../public/assets/tiktokIcon.svg';
+import LogoutBtn from './LogoutBtn';
 
 const Footer = () => {
   return (
@@ -53,6 +54,7 @@ const Footer = () => {
             </a>
           </div>
         </div>
+        <LogoutBtn />
       </div>
     </footer>
   );

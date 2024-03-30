@@ -2,8 +2,12 @@
 import closeBtn from '../../public/assets/sidePanelClose.svg';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import LogoutBtn from './LogoutBtn';
 
 const SidePanel = ({ isOpen, onClose }) => {
+  const logout = () => {
+    // TODO: Marshoud add function logic here
+  };
   return (
     <div
       className={`fixed text-black top-0 left-0 w-64 h-full bg-white shadow-md z-50 transform transition-transform duration-300 ${
@@ -50,6 +54,14 @@ const SidePanel = ({ isOpen, onClose }) => {
         >
           <h3 className='tracking-wider text-2xl'>Log in</h3>
         </motion.a>
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className='mt-5 text-red-500 underline'
+        >
+          <LogoutBtn />
+        </motion.div>
       </div>
     </div>
   );
