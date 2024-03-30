@@ -36,19 +36,19 @@ const SidePanel = ({ isOpen, onClose }) => {
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.15 }}
-          href='/universe'
+          href='/checkout'
           className='block border-b-2 p-2'
         >
-          <h3 className='tracking-wider text-2xl'>Universe</h3>
+          <h3 className='tracking-wider text-2xl'>Checkout</h3>
         </motion.a>
         <motion.a
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          href='/checkout'
+          href='/login'
           className='block border-b-2 p-2'
         >
-          <h3 className='tracking-wider text-2xl'>Checkout</h3>
+          <h3 className='tracking-wider text-2xl'>Log in</h3>
         </motion.a>
       </div>
     </div>

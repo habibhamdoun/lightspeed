@@ -51,17 +51,6 @@ const NavBar = ({ isMobile }) => {
               Shop
             </h3>
           </a>
-          <a href='/universe' className='p-2 text-black group'>
-            <h3
-              className={`tracking-wider text-2xl ${
-                pathname != '/universe'
-                  ? 'hover-underline-animation'
-                  : 'border-main border-b-2'
-              }`}
-            >
-              Universe
-            </h3>
-          </a>
           <a href='/checkout' className='p-2 text-black group'>
             <h3
               className={`tracking-wider text-2xl ${
@@ -71,6 +60,17 @@ const NavBar = ({ isMobile }) => {
               }`}
             >
               Checkout
+            </h3>
+          </a>
+          <a href='/login' className='p-2 text-black group'>
+            <h3
+              className={`tracking-wider text-2xl ${
+                pathname != '/universe'
+                  ? 'hover-underline-animation'
+                  : 'border-main border-b-2'
+              }`}
+            >
+              Log in
             </h3>
           </a>
         </div>
