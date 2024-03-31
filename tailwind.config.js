@@ -12,13 +12,13 @@ module.exports = {
         spartan: ['League Spartan', 'sans-serif'],
       },
       textColor: {
-        main: '#FFDD5E',
+        main: '#f5d047',
       },
       backgroundColor: {
-        main: '#FFDD5E',
+        main: '#f5d047',
       },
       borderColor: {
-        main: '#FFDD5E',
+        main: '#f5d047',
       },
     },
   },
