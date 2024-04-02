@@ -1,13 +1,23 @@
 'use client';
 import React, { useState } from 'react';
 import LogoutBtn from './LogoutBtn';
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from 'firebase/auth';
+import { auth, googleProvider } from '../config/firebase';
 
 const LoginDisplay = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
   const signIn = async (e) => {
-    // TODO: Masrshoud put ur function here
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      console.error(err);
+    }
   };
   const signInWithGoogle = async (e) => {
     // TODO: Masrshoud put ur function here
@@ -51,9 +61,9 @@ const LoginDisplay = () => {
             />
           </div>
           <div className='text-black'>
-            don't have an account?{' '}
+            Don't have an account?{' '}
             <a href='/createAccount' className='text-[#0000EE] underline'>
-              create account
+              Create account
             </a>
           </div>
           <button

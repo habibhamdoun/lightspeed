@@ -1,4 +1,5 @@
 'use client';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 
 const CreateAccountDisplay = () => {
@@ -6,7 +7,11 @@ const CreateAccountDisplay = () => {
   const [email, setEmail] = useState('');
 
   const handleCreateAccount = async (e) => {
-    // TODO: Masrshoud put ur function here
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      console.log(err);
+    }
   };
   const signUpWithGoogle = async (e) => {
     // TODO: Masrshoud put ur function here
@@ -31,7 +36,7 @@ const CreateAccountDisplay = () => {
               id='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className='mt-1 block w-[50vw] md:w-[30vw]  p-2 border border-gray-300 rounded-md shadow-sm'
+              className='mt-1 block w-[50vw] md:w-[30vw] text-black  p-2 border border-gray-300 rounded-md shadow-sm'
               required
             />
           </div>
@@ -47,7 +52,7 @@ const CreateAccountDisplay = () => {
               id='name'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className='mt-1 block w-[50vw] md:w-[30vw] p-2 border border-gray-300 rounded-md shadow-sm'
+              className='mt-1 text-black block w-[50vw] md:w-[30vw] p-2 border border-gray-300 rounded-md shadow-sm'
               required
             />
           </div>
