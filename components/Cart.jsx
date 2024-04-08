@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import cartIcon from '../../public/assets/cart.svg';
 import CartDisplay from './CartDisplay';
 
 const Cart = ({ onToggle }) => {
@@ -14,8 +13,10 @@ const Cart = ({ onToggle }) => {
         onClick={() => onToggle()}
       >
         <Image
-          src={cartIcon}
+          src={'/assets/cart.svg'}
           alt='Cart'
+          width={28}
+          height={28}
           className='w-full h-full transform scale-x-[-1]'
         />
       </div>

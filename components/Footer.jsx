@@ -1,9 +1,6 @@
 'use client';
 import Image from 'next/image';
 import React from 'react';
-import fb from '../../public/assets/facebookIcon.svg';
-import insta from '../../public/assets/insatgramIcon.svg';
-import tiktok from '../../public/assets/tiktokIcon.svg';
 import LogoutBtn from './LogoutBtn';
 
 const Footer = () => {
@@ -36,13 +33,21 @@ const Footer = () => {
         <div className='flex gap-2'>
           <div className='border-2 border-white rounded-full p-2 flex justify-center items-center'>
             <a href='/facebooklink'>
-              <Image src={fb} className='w-5 h-5' alt='facebook icon'></Image>
+              <Image
+                src={'/assets/facebookIcon.svg'}
+                width={28}
+                height={28}
+                className='w-5 h-5'
+                alt='facebook icon'
+              ></Image>
             </a>
           </div>
           <div className='border-2  border-white rounded-full p-2 flex justify-center items-center'>
             <a href='/instalink'>
               <Image
-                src={insta}
+                src={'/assets/insatgramIcon.svg'}
+                width={28}
+                height={28}
                 className='w-5 h-5'
                 alt='instagram icon'
               ></Image>
@@ -50,7 +55,13 @@ const Footer = () => {
           </div>
           <div className='border-2 border-white rounded-full p-2 flex justify-center items-center'>
             <a href='/tiktoklink'>
-              <Image src={tiktok} className='w-5 h-5' alt='tiktok icon'></Image>
+              <Image
+                src={'/assets/tiktokIcon.svg'}
+                width={28}
+                height={28}
+                className='w-5 h-5'
+                alt='tiktok icon'
+              ></Image>
             </a>
           </div>
         </div>

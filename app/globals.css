@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -29,7 +28,6 @@ body {
   }
 }
 h3{
-  font-family: "League Spartan", serif;
   font-optical-sizing: auto;
   font-style: normal;
 }

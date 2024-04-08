@@ -1,14 +1,12 @@
-'use client';
-import Featured from '@/app/components/Featured';
-import '../globals.css';
-import HomePage from '@/app/components/HomePage';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const page = () => {
+export const useScreenSize = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
+      setScreenSize(window.innerWidth);
       if (window.innerWidth < 768) {
         setIsMobile(true);
       } else {
@@ -22,11 +20,6 @@ const page = () => {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  return (
-    <div>
-      <HomePage isMobile={isMobile} />
-    </div>
-  );
-};
 
-export default page;
+  return { isMobile, screenSize };
+};

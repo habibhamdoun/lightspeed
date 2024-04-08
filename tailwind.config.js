@@ -8,16 +8,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        spartan: ['League Spartan', 'sans-serif'],
-      },
-      textColor: {
-        main: '#f5d047',
-      },
-      backgroundColor: {
-        main: '#f5d047',
-      },
-      borderColor: {
+      colors: {
         main: '#f5d047',
       },
     },

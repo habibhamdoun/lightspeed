@@ -1,10 +1,10 @@
 'use client';
 import React from 'react';
-import items from '../../data/items.json';
+import items from '@/data/items.json';
 import Item from './Item';
 import { motion } from 'framer-motion';
 
-const Featured = ({ isMobile }) => {
+const Featured = () => {
   return (
     <section className='m-5 flex flex-col items-center'>
       <motion.h2
@@ -12,7 +12,7 @@ const Featured = ({ isMobile }) => {
         animate={{ translateY: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className='text-center text-3xl mb-5 text-black font-spartan font-semibold'
+        className='text-center text-3xl mb-5 text-black font-semibold'
       >
         Featur<span className='text-main'>ed It</span>ems
       </motion.h2>

@@ -1,27 +1,24 @@
 'use client';
 import React, { useState } from 'react';
-import logoName from '../../public/assets/logo.png';
 import Image from 'next/image';
 import Cart from './Cart';
 import ToggleButton from './ToggleButton';
 import SidePanel from './SidePanel';
 import CartDisplay from './CartDisplay';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useScreenSize } from '@/hooks';
 
-const NavBar = ({ isMobile }) => {
+const NavBar = () => {
+  const { isMobile } = useScreenSize();
   const [isPanelOpen, setPanelOpen] = useState(false);
   const [isCartOpen, setCartOpen] = useState(false);
   const pathname = usePathname();
   console.log(pathname);
-  const togglePanel = () => {
-    setPanelOpen(!isPanelOpen);
-  };
-  const toggleCart = () => {
-    setCartOpen(!isCartOpen);
-  };
+  const togglePanel = () => setPanelOpen(!isPanelOpen);
+  const toggleCart = () => setCartOpen(!isCartOpen);
 
   return (
-    <section className='flex justify-around items-center w-[100vw] bg-white'>
+    <section className='flex justify-around items-center h-[12vh] w-[100vw] bg-white z-10'>
       {isMobile ? (
         <div>
           <ToggleButton onToggle={togglePanel} />
@@ -78,8 +75,10 @@ const NavBar = ({ isMobile }) => {
       <a href='/'>
         <div className=' text-black'>
           <Image
-            src={logoName}
+            src={'/assets/logo.png'}
             alt='logo'
+            width={600}
+            height={600}
             className='w-[30vw] md:w-[15vw]'
           ></Image>
         </div>

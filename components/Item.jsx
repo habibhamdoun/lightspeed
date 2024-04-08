@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import AddToCartBtn from './AddToCartBtn';
+
 // import useCart from '@/hooks/useCart';
 // import PriceTag from './PriceTag';
 
@@ -37,6 +38,8 @@ const Item = ({ id, badge, images, name, price }) => {
                 <Image
                   src={item}
                   alt='Product picture'
+                  // width={28}
+                  // height={28}
                   layout='fill'
                   objectFit='cover'
                   className={`absolute inset-0 transition-opacity duration-700 ease-in-out shadow-lg hover:shadow-2xl ${

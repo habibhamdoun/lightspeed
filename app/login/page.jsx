@@ -1,11 +1,11 @@
 'use client';
-import Featured from '@/app/components/Featured';
+import Featured from '@/components/Featured';
 import '../globals.css';
-import HomePage from '@/app/components/HomePage';
+import HomePage from '@/components/HomePage';
 import React, { useEffect, useState } from 'react';
-import NavBar from '../components/NavBar';
-import LoginDisplay from '../components/LoginDisplay.jsx';
-import Footer from '../components/Footer';
+import NavBar from '../../components/NavBar';
+import LoginDisplay from '../../components/LoginDisplay.jsx';
+import Footer from '../../components/Footer';
 
 const page = () => {
   const [isMobile, setIsMobile] = useState(false);

@@ -1,5 +1,4 @@
 'use client';
-import closeBtn from '../../public/assets/sidePanelClose.svg';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import LogoutBtn from './LogoutBtn';
@@ -15,7 +14,12 @@ const SidePanel = ({ isOpen, onClose }) => {
       }`}
     >
       <button className='absolute top-0 right-0 p-4' onClick={onClose}>
-        <Image src={closeBtn} alt='toggle side panel' width={20} height={20} />
+        <Image
+          src={'/assets/sidePanelClose.svg'}
+          alt='toggle side panel'
+          width={20}
+          height={20}
+        />
       </button>
       <div className='p-4 flex flex-col gap-8 mt-8'>
         <motion.a

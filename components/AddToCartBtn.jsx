@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import React from 'react';
-import addToCart from '../../public/assets/addToCart.svg';
 
 const AddToCartBtn = () => {
   return (
@@ -12,7 +11,7 @@ const AddToCartBtn = () => {
           // TODO: Add your on-click logic here
         }}
       >
-        <Image src={addToCart} width={28} height={28} />
+        <Image src={'/assets/addToCart.svg'} width={28} height={28} />
       </button>
     </>
   );
