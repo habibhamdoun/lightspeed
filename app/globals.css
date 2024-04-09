@@ -17,9 +17,12 @@
   }
 }
 
+html{
+  overflow-x: hidden;
+}
 body {
   color: rgb(var(--foreground-rgb));
-  /* background: black; */
+  overflow-x: hidden;
 }
 
 @layer utilities {
@@ -27,11 +30,10 @@ body {
     text-wrap: balance;
   }
 }
-h3{
+/* h3{
   font-optical-sizing: auto;
   font-style: normal;
-}
-/* styles.css or in a <style> tag */
+} */
 .hover-underline-animation::after {
   content: '';
   display: block;
@@ -45,3 +47,23 @@ h3{
   width: 100%;
 }
 
+  * {
+    scrollbar-color:  #ffffff;
+    --scrollbar-width: 0px;
+    --scrollbar-face-color: transparent;
+    
+  }
+  
+
+  *::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    border: 0px solid #ffffff;
+  }

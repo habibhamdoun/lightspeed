@@ -19,7 +19,7 @@ export const useScreenSize = () => {
     handleResize();
 
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [window.innerWidth]);
 
   return { isMobile, screenSize };
 };

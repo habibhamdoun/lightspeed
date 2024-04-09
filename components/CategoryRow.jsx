@@ -50,6 +50,7 @@ const CategoryRow = () => {
       <div className='flex md:flex-row flex-col items-center justify-around gap-5'>
         {categories.map((category) => (
           <CategorySquare
+            id={category.id}
             key={category.id}
             title={category.title}
             imageUrl={category.imageUrl}

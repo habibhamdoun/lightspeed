@@ -16,7 +16,7 @@ const Featured = () => {
       >
         Featur<span className='text-main'>ed It</span>ems
       </motion.h2>
-      <div className='flex sm:flex-row flex-col justify-center items-center flex-wrap gap-10 '>
+      <div className='flex sm:flex-row flex-col flex-wrap justify-center items-center gap-10 '>
         {items.map((item) => {
           if (item.featured)
             return (
