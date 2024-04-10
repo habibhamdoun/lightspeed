@@ -10,15 +10,13 @@
         "/products/img1.png",
         "/products/img1.png"
     ],
-    "name":"Hoodie",
+    "name":"Name",
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
-    
     "price": "15.99",
     "style":"Hoodie",
     "badge": "NEW",
     "featured":true,
     "date":"11/2/2023"
-    
 },
 {
     "id":"2",
@@ -28,7 +26,7 @@
         "/products/hoodie1.webp",
         "/products/img1.png"
     ],
-    "name":"T-shirt",
+    "name":"Name",
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "1.99",
     "style":"T-shirt",
@@ -44,7 +42,7 @@
         "/products/hoodie1.webp",
         "/products/img1.png"
     ],
-    "name":"T-shirt",
+    "name":"Name",
 
     
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
@@ -62,7 +60,7 @@
         "/products/hoodie1.webp",
         "/products/img1.png"
     ],
-    "name":"T-shirt",
+    "name":"Name",
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "12.99",
     "style":"T-shirt",
@@ -78,7 +76,7 @@
         "/products/hoodie1.webp",
         "/products/img1.png"
     ],
-    "name":"T-shirt",
+    "name":"Name",
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "12.99",
     "style":"T-shirt",
@@ -94,7 +92,7 @@
         "/products/hoodie1.webp",
         "/products/img1.png"
     ],
-    "name":"T-shirt",
+    "name":"Name",
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "12.99",
     "style":"T-shirt",

@@ -26,6 +26,7 @@ const Featured = () => {
                 name={item.name}
                 price={item.price}
                 badge={item.badge != '' ? item.badge : 'none'}
+                style={item.style}
               />
             );
         })}
