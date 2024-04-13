@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
+const fs = require('fs'); 
 const authMiddleware = require('./authMiddleware');
 
 app.use(express.json()); 
@@ -24,6 +25,82 @@ const db = admin.firestore();
 
 // Helper Functions
 
+/// Get Date Identifiers 
+function getWeekIdentifier(date) {
+  // Logic to calculate week number in the format 'YYYY-WNN'
+  date.setHours(0, 0, 0, 0);
+  date.setDate(date.getDate() + 4 - (date.getDay() || 7)); 
+  const weekStart = new Date(Date.UTC(date.getFullYear(), 0, 1));
+  const weekNumber =  Math.ceil((((date - weekStart) / 86400000) + 1) / 7);
+  return date.getFullYear() + '-W' + weekNumber;
+}
+
+
+function getDateIdentifiers(date = new Date()) { 
+  const today = date.toISOString().substring(0, 10); // YYYY-MM-DD
+  const currentWeek = getWeekIdentifier(date); 
+  const currentMonth = date.toISOString().substring(0, 7); // YYYY-MM
+  return { today, currentWeek, currentMonth };
+}
+
+/// Main Update Function
+// Main Update Function
+async function updateAnalyticsAfterOrder(orderData) { 
+  const storeStatsRef = db.collection('storeAnalytics').doc('rWTX2cfNrktfoi1d143m'); 
+  const { today, currentWeek, currentMonth } = getDateIdentifiers();
+
+  try {
+    await storeStatsRef.update({
+      totalRevenue: admin.firestore.FieldValue.increment(orderData.totalPrice),
+      numOrders: admin.firestore.FieldValue.increment(1),
+      [`dailySales.${today}`]: {
+        revenue: admin.firestore.FieldValue.increment(orderData.totalPrice),
+        numOrders: admin.firestore.FieldValue.increment(1)  
+      },
+      [`weeklySales.${currentWeek}`]: { 
+        revenue: admin.firestore.FieldValue.increment(orderData.totalPrice),
+        numOrders: admin.firestore.FieldValue.increment(1)  
+      },
+      [`monthlySales.${currentMonth}`]: { 
+        revenue: admin.firestore.FieldValue.increment(orderData.totalPrice),
+        numOrders: admin.firestore.FieldValue.increment(1)  
+      },
+    });  
+
+    // Fetch and update topSellingProducts 
+    const existingTopProducts = (await storeStatsRef.get()).data().topSellingProducts || [];
+
+  // Update product counts and add new products to existingTopProducts array 
+  orderData.orderItems.forEach((item) => {
+    const existingProduct = existingTopProducts.find(p => p.productId === item.productId); 
+    if (existingProduct) {
+      existingProduct.salesCount += item.quantity;
+    } else {
+      existingTopProducts.push({
+        productId: item.productId,
+        name: item.name, // Assuming you have the name in orderData
+        salesCount: item.quantity 
+      });
+    }
+  });
+
+  // Sort and limit to top 5
+  existingTopProducts.sort((a, b) => b.salesCount - a.salesCount); // Descending sort
+  const updatedTopProducts = existingTopProducts.slice(0, 5);
+
+    // Second update
+    await storeStatsRef.update({ 
+      topSellingProducts: updatedTopProducts 
+    }); 
+
+  } catch (error) {
+    console.error('Error updating analytics:', error); 
+  } 
+}
+
+
+
+
 /// Validating URL
 function isValidUrl(urlString) {
     try {
@@ -37,6 +114,32 @@ function isValidUrl(urlString) {
 
 
 // EndPoints
+
+
+
+
+
+// Add document to Firestore (General)
+app.post('/api/addDocument', async (req, res) => {
+  try {
+    const collectionName = req.body.collection;
+    const filePath = req.body.filePath;
+
+    if (!collectionName || !filePath) {
+      return res.status(400).json({ error: 'Missing collection or file path' });
+    }
+
+    const rawData = fs.readFileSync(filePath);
+    const documentData = JSON.parse(rawData);
+
+    const newDocRef = await db.collection(collectionName).add(documentData);
+
+    res.status(201).json({ message: 'Document added', documentId: newDocRef.id });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
  
   
 // Add Product to Database EndPoint
@@ -420,8 +523,8 @@ app.delete('/api/cart/items/:productId', authMiddleware, async (req, res) => {
  });
  
 
-// Checkout
-app.post('/api/orders', authMiddleware, async (req, res) => {
+// Endpoint: Checkout
+app.post('/api/checkout', authMiddleware, async (req, res) => {
   try {
     await db.runTransaction(async transaction => {
       // 1. Retrieve User's Cart 
@@ -494,14 +597,14 @@ app.post('/api/orders', authMiddleware, async (req, res) => {
 
       transaction.update(cartSnapshot.docs[0].ref, { status: 'inactive' })
      });
-
+    updateAnalyticsAfterOrder(newOrder);
     res.status(201).json({ message: 'Order Placed', orderId: newOrder.id });
   } catch(error) {
     res.status(500).json({ error: error.message });  
   }
 });
 
-// Retrieve Orders of User (With Status Filtering)
+// Endpoint: Retrieve Orders of User (With Status Filtering)
 app.get('/api/orders', authMiddleware, async (req, res) => {
   try {
     const userId = req.user.uid;
