@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
+const authMiddleware = require('./authMiddleware');
 
 app.use(express.json()); 
 const port = 3002; 
@@ -19,9 +20,11 @@ admin.initializeApp({
 });
 
 
-const db = admin.firestore(); 
+const db = admin.firestore();
 
 // Helper Functions
+
+/// Validating URL
 function isValidUrl(urlString) {
     try {
       new URL(urlString);
@@ -32,6 +35,10 @@ function isValidUrl(urlString) {
   }
 
 
+
+// EndPoints
+ 
+  
 // Add Product to Database EndPoint
 app.post('/api/products', async (req, res) => {
     try {
@@ -57,16 +64,46 @@ app.post('/api/products', async (req, res) => {
       }
       // Add a maximum length check for description if desired
   
-      // imageUrl Validation (Optional)
+      // imageUrl Validation
       if (newProduct.imageUrl && !isValidUrl(newProduct.imageUrl)) { // You'll need a `isValidUrl` function
         return res.status(400).json({ error: 'Image URL must be a valid URL' });
       }
+
+      // Additional Images Array Validation
+      if (updates.imageUrls) {
+        if (!Array.isArray(updates.imageUrls)) {
+          return res.status(400).json({ error: 'imageUrls must be an array' });
+        }
+        updates.imageUrls.forEach((imageUrl) => {
+          if (!isValidUrl(imageUrl)) {
+              return res.status(400).json({ error: 'Invalid image URL' });
+          }
+        });
+      }
   
-      // Stock Validation (Optional)
+      // Stock Validation
       if (newProduct.stock && (typeof newProduct.stock !== 'number' || newProduct.stock < 0)) { 
         return res.status(400).json({ error: 'Stock must be a non-negative integer' });
       }
-  
+      // Variants Validation 
+    if (!newProduct.variants || typeof newProduct.variants !== 'object') {
+      return res.status(400).json({ error: 'Variants are required' });
+    }
+
+    // Validate individual colors, sizes, and quantities
+    Object.entries(newProduct.variants.color).forEach(([color, sizes]) => {
+      if (typeof color !== 'string' || color.trim() === '') {
+        return res.status(400).json({ error: 'Invalid color' }); 
+      }
+      Object.entries(sizes).forEach(([size, quantity]) => {
+        if (typeof size !== 'string' || !['S', 'M', 'L'].includes(size)) { 
+          return res.status(400).json({ error: 'Invalid size' }); 
+        }
+        if (typeof quantity !== 'number' || quantity < 0) {
+          return res.status(400).json({ error: 'Invalid quantity' }); 
+        }
+      });
+    });
       // -----  If Validation Passes -------
       const productRef = await db.collection('products').add(newProduct);
       res.status(201).json({ message: 'Product added', productId: productRef.id });
@@ -98,6 +135,18 @@ app.get('/api/products', async (req, res) => {
       }
       productsQuery = productsQuery.where('price', '<=', maxPrice);
     }
+      if (req.query.type) {
+        productsQuery = productsQuery.where('type', '==', req.query.type);
+      }
+      if (req.query.color) {
+        productsQuery = productsQuery.where('variants.color', 'array-contains', req.query.color);
+      }
+      if (req.query.size) {
+        productsQuery = productsQuery.where(`variants.color`, 'array-contains-any', 
+            Object.entries(req.query.size).map(([color, size]) => ({ color, size }))
+        );
+    }
+    
 
     // Sorting Logic (with Validation)
     const allowedSortByFields = ['name', 'price']; // Define allowed fields 
@@ -143,14 +192,65 @@ app.patch('/api/products/:productId', async (req, res) => {
     const productId = req.params.productId;
     const updates = req.body;
 
-    // Input Validation (Adapt this to your specific requirements)
-    if (updates.name && typeof updates.name !== 'string') {
-      return res.status(400).json({ error: 'Product name must be a string' });
+  //-----Input Validation-----
+  // Name Validation
+   if (typeof newProduct.name !== 'string' || newProduct.name.trim() === '') {
+    return res.status(400).json({ error: 'Product name is required and must be a string' });
+  }
+  if (newProduct.name.length < 3 || newProduct.name.length > 100) {
+     return res.status(400).json({ error: 'Product name must be between 3 and 100 characters long' });
+  }
+
+  // Price Validation
+  if (typeof newProduct.price !== 'number' || newProduct.price <= 0) {
+    return res.status(400).json({ error: 'Price is required and must be a positive number' });
+  }
+
+  // Description Validation (Optional)
+  if (newProduct.description && typeof newProduct.description !== 'string') {
+    return res.status(400).json({ error: 'Description must be a string' });
+  }
+
+  // imageUrl Validation
+  if (newProduct.imageUrl && !isValidUrl(newProduct.imageUrl)) { // You'll need a `isValidUrl` function
+    return res.status(400).json({ error: 'Image URL must be a valid URL' });
+  }
+
+  // Additional Images Array Validation
+  if (updates.imageUrls) {
+    if (!Array.isArray(updates.imageUrls)) {
+      return res.status(400).json({ error: 'imageUrls must be an array' });
     }
-    if (updates.price && typeof updates.price !== 'number') {
-      return res.status(400).json({ error: 'Price must be a number' });
+    updates.imageUrls.forEach((imageUrl) => {
+      if (!isValidUrl(imageUrl)) {
+          return res.status(400).json({ error: 'Invalid image URL' });
+      }
+    });
+  }
+
+  // Stock Validation
+  if (newProduct.stock && (typeof newProduct.stock !== 'number' || newProduct.stock < 0)) { 
+    return res.status(400).json({ error: 'Stock must be a non-negative integer' });
+  }
+    // Variants Validation 
+    if (!newProduct.variants || typeof newProduct.variants !== 'object') {
+      return res.status(400).json({ error: 'Variants are required' });
     }
-    // ... add validation for other updatable fields
+
+    // Validate individual colors, sizes, and quantities 
+    Object.entries(newProduct.variants.color).forEach(([color, sizes]) => {
+      if (typeof color !== 'string' || color.trim() === '') {
+        return res.status(400).json({ error: 'Invalid color' }); 
+      }
+      Object.entries(sizes).forEach(([size, quantity]) => {
+        if (typeof size !== 'string' || !['S', 'M', 'L'].includes(size)) { 
+          return res.status(400).json({ error: 'Invalid size' }); 
+        }
+        if (typeof quantity !== 'number' || quantity < 0) {
+          return res.status(400).json({ error: 'Invalid quantity' }); 
+        }
+      });
+    });
 
     // Update the product in Firestore
     const productRef = db.collection('products').doc(productId);
@@ -165,6 +265,267 @@ app.patch('/api/products/:productId', async (req, res) => {
     res.status(200).json({ message: 'Product updated', product: updatedDoc.data() });
 
   } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Retrieving User's Shopping Cart
+app.get('/api/cart', authMiddleware, async (req, res) => {
+  try {
+    const userCart = await db.collection('carts').where('userId', '==', req.user.uid).get();
+
+    if (userCart.empty) {
+       return res.status(404).json({ message: 'Cart not found' });
+    }
+
+    // Note: userCart.docs will likely have only one document
+    const cartData = userCart.docs[0].data(); 
+    res.json(cartData); 
+
+  } catch(error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Creating a New Cart
+app.post('/api/cart', authMiddleware, async (req, res) => {
+  try {
+    const existingCart = await db.collection('carts').where('userId', '==', req.user.uid).limit(1).get();
+
+    if (!existingCart.empty) {
+       return res.status(400).json({ error: 'Cart already exists for this user' }); // Or update the existing cart
+    }
+
+    const newCart = await db.collection('carts').add({
+      userId: req.user.uid,
+      items: [] // Start with an empty items array
+    });
+
+    res.status(201).json({ message: 'Cart created', cartId: newCart.id });
+  } catch(error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Adding Item to Cart
+app.post('/api/cart/items', authMiddleware, async (req, res) => {
+  try {
+    const { productId, quantity, color, size } = req.body; // Include color and size
+
+    if (!productId || typeof quantity !== 'number' || quantity <= 0 || !color || !size) { 
+      return res.status(400).json({ error: 'Invalid product data' });
+    }
+
+    const cartRef = db.collection('carts').where('userId', '==', req.user.uid).limit(1);
+    const cartSnapshot = await cartRef.get();
+
+    if (cartSnapshot.empty) { 
+      return res.status(404).json({ error: 'Cart not found' }); 
+    }
+
+    const cartDoc = cartSnapshot.docs[0];
+    const cartData = cartDoc.data();
+
+    const existingItemIndex = cartData.items.findIndex(item => item.productId === productId);
+
+    if (existingItemIndex !== -1) {
+      // Update existing item quantity (You might want more complex logic here)
+      cartData.items[existingItemIndex].quantity += quantity;
+    } else {
+      // Add new item
+      cartData.items.push({ productId, quantity });
+    }
+
+    await cartDoc.ref.update(cartData);
+
+    res.json({ message: 'Item added to cart' });
+  } catch(error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Updating Item Quantity in Cart
+app.patch('/api/cart/items/:productId', authMiddleware, async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const { quantity, color, size } = req.body; // Include color and size
+
+    if (typeof quantity !== 'number' || quantity <= 0 || !color || !size) {
+      return res.status(400).json({ error: 'Invalid update data' });
+    }
+
+    const cartRef = db.collection('carts').where('userId', '==', req.user.uid).limit(1); 
+    const cartSnapshot = await cartRef.get();
+
+    if (cartSnapshot.empty) {
+      return res.status(404).json({ error: 'Cart not found' }); 
+    }
+
+    const cartDoc = cartSnapshot.docs[0];
+    const cartData = cartDoc.data();
+
+    const itemIndex = cartData.items.findIndex(item => 
+        item.productId === productId && item.color === color && item.size === size
+    );
+
+    if (itemIndex === -1) {
+      return res.status(404).json({ error: 'Item not found in cart' });
+    }
+
+    cartData.items[itemIndex].quantity = quantity;
+    await cartDoc.ref.update(cartData);
+
+    res.json({ message: 'Item quantity updated in cart' });
+  } catch(error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+// Removing an Item from Cart
+app.delete('/api/cart/items/:productId', authMiddleware, async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const { color, size } = req.body; // Include color and size
+ 
+    if (!color || !size) {
+      return res.status(400).json({ error: 'Color and size are required' });
+    }
+ 
+    const cartRef = db.collection('carts').where('userId', '==', req.user.uid).limit(1); 
+    const cartSnapshot = await cartRef.get();
+ 
+    if (cartSnapshot.empty) {
+      return res.status(404).json({ error: 'Cart not found' }); 
+    }
+ 
+    const cartDoc = cartSnapshot.docs[0];
+    const cartData = cartDoc.data();
+ 
+    const itemIndex = cartData.items.findIndex(item => 
+        item.productId === productId && item.color === color && item.size === size
+    );
+ 
+    if (itemIndex === -1) {
+      return res.status(404).json({ error: 'Item not found in cart' });
+    }
+ 
+    cartData.items.splice(itemIndex, 1); 
+    await cartDoc.ref.update(cartData);
+ 
+    res.json({ message: 'Item removed from cart' });
+  } catch(error) {
+    res.status(500).json({ error: error.message });
+  }
+ });
+ 
+
+// Checkout
+app.post('/api/orders', authMiddleware, async (req, res) => {
+  try {
+    await db.runTransaction(async transaction => {
+      // 1. Retrieve User's Cart 
+      const cartRef = db.collection('carts').where('userId', '==', req.user.uid).limit(1);
+      const cartSnapshot = await transaction.get(cartRef);
+      const cartData = cartSnapshot.docs[0].data(); 
+
+      // 2. Price Calculation
+      let totalPrice = 0;
+      const orderItems = [];
+
+      for (const item of cartData.items) {
+        const productSnapshot = await transaction.get(db.collection('products').doc(item.productId));
+        const productData = productSnapshot.data();
+
+        if (!productData) {
+          throw new Error(`Product not found: ${item.productId}`);
+        }
+
+        const itemPrice = productData.price * item.quantity;
+        totalPrice += itemPrice; 
+
+        orderItems.push({
+          productId: item.productId,
+          name: productData.name, // Snapshot product details
+          price: productData.price,
+          quantity: item.quantity
+        });
+      }
+      // Stock Availability Check
+    const stockPromises = cartItems.map(async (item) => {
+      const productDoc = await db.collection('products').doc(item.productId).get();
+      if (!productDoc.exists) {
+        throw new Error(`Product not found: ${item.productId}`);
+      }
+
+      const productData = productDoc.data();
+    const selectedVariant = productData.variants.color[item.color]?.[item.size]; 
+    if (!selectedVariant || selectedVariant < item.quantity) {
+        throw new Error(`Insufficient stock for product ${item.productId} (color: ${item.color}, size: ${item.size})`); 
+    }
+}); 
+
+    await Promise.all(stockPromises); 
+
+    // ... (Create order) 
+
+    // Stock Reduction
+    const stockUpdatePromises = cartItems.map(async (item) => {
+      const productRef = db.collection('products').doc(item.productId);
+      await productRef.update({
+        [`variants.color.${item.color}.${item.size}`]: admin.firestore.FieldValue.increment(-item.quantity)
+      });
+    });
+
+    await Promise.all(stockUpdatePromises); // Ensure all stock updates succeed
+
+      // 3. Create Order
+      const newOrder = await transaction.add('orders', {
+        userId: req.user.uid,
+        cartId: cartSnapshot.docs[0].id,
+        shippingAddress: req.body.shippingAddress, // Assuming the data is received 
+        billingAddress: req.body.billingAddress,
+        status: 'pending',
+        totalPrice,
+        orderItems,
+        status: 'pending',
+        timestamp: admin.firestore.Timestamp.now() 
+      });
+
+      transaction.update(cartSnapshot.docs[0].ref, { status: 'inactive' })
+     });
+
+    res.status(201).json({ message: 'Order Placed', orderId: newOrder.id });
+  } catch(error) {
+    res.status(500).json({ error: error.message });  
+  }
+});
+
+// Retrieve Orders of User (With Status Filtering)
+app.get('/api/orders', authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.uid;
+    const status = req.query.status;
+
+    let ordersQuery = db.collection('orders').where('userId', '==', userId);
+
+    // Apply status filter if provided
+    if (status) {
+      ordersQuery = ordersQuery.where('status', '==', status);
+    }
+
+    ordersQuery = ordersQuery.orderBy('timestamp', 'desc'); // Sort by timestamp
+
+    const ordersSnapshot = await ordersQuery.get();
+
+    const orders = ordersSnapshot.docs.map(doc => ({
+        orderId: doc.id,
+        ...doc.data()
+    })); 
+
+    res.json(orders);
+
+  } catch(error) {
     res.status(500).json({ error: error.message });
   }
 });
