@@ -48,25 +48,33 @@ const CartDisplay = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div>
+    <div className={`${isOpen ? 'overscroll-none' : ''} `}>
       {isOpen && (
-        <div className='fixed top-0 left-0 w-full h-full bg-black z-20 opacity-75'></div>
+        <div
+          onClick={onClose}
+          className='fixed top-0 left-0 w-full h-full bg-black z-20 opacity-75 overscroll-none'
+        ></div>
       )}
       <div
-        className={`fixed top-0 right-0 w-full md:w-[30vw] min-w-[500px] h-full bg-white shadow-md z-50 transform transition-transform duration-300 ${
+        className={`fixed top-0 right-0 w-full md:w-[30vw] md:min-w-[500px] h-full bg-white shadow-md z-50 transform transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <button className='absolute top-0 left-0 p-4' onClick={onClose}>
-          <Image
-            src={'/assets/sidePanelClose.svg'}
-            alt='toggle side panel'
-            width={20}
-            height={20}
-          />
-        </button>
-        <main className='h-[100vh] flex flex-col gap-4 justify-between px-5'>
-          <div className='mt-[10vh]'>
+        <div className='flex items-center justify-center'>
+          <h3 className='text-center p-5 font-semibold text-3xl '>
+            Shopp<span className='gradient-main-rtol'>ing Ca</span>rt
+          </h3>
+          <button className='ml-auto p-5' onClick={onClose}>
+            <Image
+              src={'/assets/sidePanelClose.svg'}
+              alt='toggle side panel'
+              width={20}
+              height={20}
+            />
+          </button>
+        </div>
+        <main className='h-[90vh] flex flex-col gap-4 justify-between px-5'>
+          <div className='mt-[5vh] overflow-y-scroll'>
             {cartDetails.length > 0 ? (
               cartDetails.map((item) => (
                 <div key={item.id} className='flex'>
@@ -105,6 +113,8 @@ const CartDisplay = ({ isOpen, onClose }) => {
                           {item.price.toLocaleString('en-US', {
                             style: 'currency',
                             currency: 'USD',
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
                           })}
                           $
                         </p>
@@ -122,13 +132,17 @@ const CartDisplay = ({ isOpen, onClose }) => {
               <span className='text-lg font-semibold py-2'>SUBTOTAL: </span>
               <span className='text-lg font-semibold'>
                 <div className=' flex items-center justify-center font-bold text-lg text-black'>
-                  $
                   {/* <PriceTag
                     priceType={priceType}
                     setPriceType={setPriceType}
                     price={price}
                   /> */}
-                  {subtotal}
+                  {subtotal.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </div>
               </span>{' '}
             </div>
