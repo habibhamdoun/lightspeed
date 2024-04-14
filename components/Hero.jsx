@@ -23,13 +23,15 @@ const Hero = () => {
         ></Image>
         <div className=' text-center flex flex-col md:items-start items-center justify md:ml-16'>
           <div className='md:text-[3vw] text-[7vw] font-semibold text-white '>
-            Where velocity meets <span className='text-main'>Victory</span>{' '}
+            Where velocity meets{' '}
+            <span className='gradient-main-rtol'>Victory</span>{' '}
             {!isMobile && <br></br>}
-            Every <span className='text-main'>Stitch</span> a Leap Beyond
+            Every <span className='gradient-main-ltor'>Stitch</span> a Leap
+            Beyond
           </div>
 
           <a href='/shop'>
-            <button className='inline-flex font-bold rounded-md items-center px-7 py-6 my-2 text-5xl tracking-tighter bg-white text-black hover:text-main hover:bg-black duration-300'>
+            <button className='inline-flex font-bold rounded-md items-center px-7 py-6 my-2 text-5xl tracking-tighter gradient-bg-main-rtol text-black hover:text-white duration-300'>
               Shop Now
             </button>
           </a>

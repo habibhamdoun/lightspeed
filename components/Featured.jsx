@@ -14,7 +14,7 @@ const Featured = () => {
         viewport={{ once: true }}
         className='text-center text-3xl mb-5 text-black font-semibold'
       >
-        Featur<span className='text-main'>ed It</span>ems
+        Featur<span className='gradient-main-rtol'>ed It</span>ems
       </motion.h2>
       <div className='flex sm:flex-row flex-col flex-wrap justify-center items-center gap-10 '>
         {items.map((item) => {

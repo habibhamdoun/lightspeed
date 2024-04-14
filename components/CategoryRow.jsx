@@ -44,8 +44,8 @@ const CategoryRow = () => {
   return (
     <section>
       <h3 className='text-2xl text-center text-black font-semibold mb-7 '>
-        <span className='text-main'>Ca</span>te
-        <span className='text-main'>go</span>ries
+        <span className='gradient-main-ltor'>Ca</span>te
+        <span className='gradient-main-rtol'>go</span>ries
       </h3>
       <div className='flex md:flex-row flex-col items-center justify-around gap-5'>
         {categories.map((category) => (

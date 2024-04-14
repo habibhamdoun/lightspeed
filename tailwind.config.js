@@ -9,7 +9,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        main: '#f5d047',
+        main: '#ffdc64',
+        secondary: '#f88c3c',
+      },
+      gradientColorStopPositions: {
+        36: '120%',
       },
     },
   },

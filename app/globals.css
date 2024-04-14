@@ -7,6 +7,7 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
   --color-main:#FFDD5E;
+  --color-gradient:linear-gradient(90deg, rgba(255,220,100,1) 36%, rgba(248,140,60,1) 100%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,6 +31,15 @@ body {
     text-wrap: balance;
   }
 }
+.gradient-main-rtol{
+  @apply bg-gradient-to-r from-main to-secondary to-36 inline-block text-transparent bg-clip-text bg-gradient-to-r from-main to-secondary to-36 inline-block text-transparent bg-clip-text
+}
+.gradient-main-ltor{
+  @apply bg-gradient-to-l from-main to-secondary to-36 inline-block text-transparent bg-clip-text
+}
+.gradient-bg-main-rtol{
+  @apply bg-gradient-to-r from-main to-secondary to-36
+}
 /* h3{
   font-optical-sizing: auto;
   font-style: normal;
@@ -40,6 +50,7 @@ body {
   width: 0;
   height: 2px;
   background: var(--color-main);
+  background:var(--color-gradient);
   transition: width 0.5s;
 }
 
