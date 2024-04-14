@@ -20,7 +20,6 @@ const PriceTag = ({ priceType, setPriceType, price }) => {
       </select>
       {priceType == 'USD' ? (
         <div className='font-bold text-lg m-1 text-black'>
-          $
           {price.toLocaleString('en-US', {
             style: 'currency',
             currency: 'USD',

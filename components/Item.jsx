@@ -27,7 +27,7 @@ const Item = ({ id, badge, images, name, price, style }) => {
           onMouseLeave={() => setImageSource(images[0])}
         >
           {badge != 'none' && (
-            <div className='z-50 absolute top-0 right-0 bg-main text-black px-2 py-1 text-lg font-bold transform translate-x-1/2 -translate-y-1/2'>
+            <div className='z-10 absolute top-0 right-0 bg-main text-black px-2 py-1 text-lg font-bold transform translate-x-1/2 -translate-y-1/2'>
               {badge}
             </div>
           )}
@@ -67,7 +67,7 @@ const Item = ({ id, badge, images, name, price, style }) => {
                 price={price}
               /> */}
             {price}
-            <AddToCartBtn />
+            <AddToCartBtn id={id} />
           </div>
         </div>
       </motion.div>

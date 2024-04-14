@@ -62,7 +62,7 @@ const LoginDisplay = () => {
           </div>
           <div className='text-black'>
             Don't have an account?{' '}
-            <a href='/createAccount' className='text-[#0000EE] underline'>
+            <a href='/create-account' className='text-[#0000EE] underline'>
               Create account
             </a>
           </div>

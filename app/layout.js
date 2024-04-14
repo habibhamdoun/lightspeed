@@ -1,5 +1,6 @@
 import { Montserrat } from 'next/font/google';
 import './globals.css';
+import { AppWrapper } from '@/context';
 
 const inter = Montserrat({
   subsets: ['latin'],
@@ -14,7 +15,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <AppWrapper>
+        <body className={inter.className}>{children}</body>
+      </AppWrapper>
     </html>
   );
 }
