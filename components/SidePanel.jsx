@@ -10,10 +10,13 @@ const SidePanel = ({ isOpen, onClose }) => {
   return (
     <section>
       {isOpen && (
-        <div
+        <motion.div
           onClick={onClose}
-          className='fixed top-0 left-0 w-full h-full bg-black z-20 opacity-75'
-        ></div>
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.75 }}
+          transition={{ duration: 0.5 }}
+          className='fixed top-0 left-0 w-full h-full bg-black z-20 '
+        ></motion.div>
       )}
       <div
         className={`fixed text-black top-0 left-0 w-64 h-full bg-white shadow-md z-50 transform transition-transform duration-300 ${

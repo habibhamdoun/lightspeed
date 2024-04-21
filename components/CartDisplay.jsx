@@ -7,7 +7,8 @@ import items from '@/data/items.json';
 import { useAppContext } from '@/context';
 // import PriceTag from './PriceTag';
 import { useEffect, useState } from 'react';
-
+import { motion } from 'framer-motion';
+// TODO: add circle around + and - and add a trash icon to instantly remove element.
 const CartDisplay = ({ isOpen, onClose }) => {
   const { cart, removeFromCart, addToCart, subtotal } = useAppContext();
   const router = useRouter();
@@ -50,10 +51,13 @@ const CartDisplay = ({ isOpen, onClose }) => {
   return (
     <div className={`${isOpen ? 'overscroll-none' : ''} `}>
       {isOpen && (
-        <div
+        <motion.div
           onClick={onClose}
-          className='fixed top-0 left-0 w-full h-full bg-black z-20 opacity-75 overscroll-none'
-        ></div>
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.75 }}
+          transition={{ duration: 0.5 }}
+          className='fixed top-0 left-0 w-full h-full bg-black z-20 '
+        ></motion.div>
       )}
       <div
         className={`fixed top-0 right-0 w-full md:w-[30vw] md:min-w-[500px] h-full bg-white shadow-md z-50 transform transition-transform duration-300 ${
@@ -88,13 +92,16 @@ const CartDisplay = ({ isOpen, onClose }) => {
                   {/* <span className='text-sm'>{item.options}</span> */}
                   <div className='flex flex-col w-full justify-between'>
                     <span className='text-lg font-semibold'>{item.name}</span>
+                    <span className='text-md font-light text-gray-400'>
+                      {item.style}
+                    </span>
                     <div className='flex w-full justify-between items-center'>
-                      <div className='flex'>
+                      <div className='flex border-[1px] border-gray-500 rounded-2xl px-2'>
                         <button
                           onClick={() => {
                             removeFromCart(item.id);
                           }}
-                          className='text-lg px-1 '
+                          className='text-lg px-1 w-5 h-full rounded-full hover:bg-gray-200 transition-colors duration-300'
                         >
                           -
                         </button>
@@ -103,7 +110,7 @@ const CartDisplay = ({ isOpen, onClose }) => {
                           onClick={() => {
                             addToCart(item.id);
                           }}
-                          className='text-lg px-2'
+                          className='text-lg px-1 w-5 h-full rounded-full hover:bg-gray-200 transition-colors duration-300'
                         >
                           +
                         </button>{' '}

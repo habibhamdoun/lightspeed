@@ -6,11 +6,11 @@ const Logo = () => {
     <a href='/'>
       <div className=' text-black'>
         <Image
-          src={'/assets/logoOnly.svg'}
+          src={'/assets/logowithText.png'}
           alt='logo'
           width={600}
           height={600}
-          className='w-[25vw] md:w-[17vw] lg:w-[10vw] p-8 max-h-[150px] max-w-[200px]'
+          className='w-[70vw] sm:w-[40vw] max-h-[300px] max-w-[300px]'
         ></Image>
       </div>
     </a>

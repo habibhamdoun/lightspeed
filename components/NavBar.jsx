@@ -10,7 +10,7 @@ import Logo from './Logo';
 import NavList from './NavList';
 
 const NavBar = () => {
-  const { isMobile } = useScreenSize();
+  const { isMobile, screenSize } = useScreenSize();
   const [isPanelOpen, setPanelOpen] = useState(false);
   const [isCartOpen, setCartOpen] = useState(false);
 
@@ -19,7 +19,7 @@ const NavBar = () => {
 
   return (
     <section className='flex justify-around items-center h-[12vh] w-[100vw] bg-white z-10'>
-      {isMobile ? (
+      {screenSize < 900 ? (
         <div className='flex items-center justify-between w-full '>
           <div>
             <ToggleButton onToggle={togglePanel} />
