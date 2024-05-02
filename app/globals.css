@@ -53,6 +53,9 @@ body {
   background:var(--color-gradient);
   transition: width 0.5s;
 }
+body{
+  color:black
+}
 
 .hover-underline-animation:hover::after {
   width: 100%;
