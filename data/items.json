@@ -23,6 +23,7 @@
     "brand":"AOT",
     "badge": "NEW",
     "featured":true,
+    "status":"low stock",
     "date":"11/2/2023"
     
 },
@@ -46,6 +47,7 @@
     "brand":"JJK",
     "badge": "none",
     "featured":true,
+    "status":"in stock",
     "date":"11/2/2020"
 },
 {
@@ -71,6 +73,7 @@
     "brand":"hoodies",
     "badge": "NEW",
     "featured":false,
+    "status":"out of stock",
     "date":"11/2/2021"
 },
 {
@@ -94,6 +97,7 @@
     "brand":"hoodies",
     "badge": "NEW",
     "featured":false,
+    "status":"in stock",
     "date":"11/2/2021"
 },
 {
@@ -116,6 +120,7 @@
     "brand":"Hoodie",
     "badge": "NEW",
     "featured":false,
+    "status":"in stock",
     "date":"11/2/2021"
 },
 {
@@ -138,6 +143,7 @@
     "brand":"hoodies",
     "badge": "NEW",
     "featured":false,
+    "status":"in stock",
     "date":"11/2/2021"
 },
 {
@@ -160,6 +166,7 @@
     "brand":"Solo Leveling",
     "badge": "NEW",
     "featured":false,
+    "status":"in stock",
     "date":"11/2/2021"
 }
 ,
@@ -183,6 +190,7 @@
     "brand":"Naruto",
     "badge": "NEW",
     "featured":false,
+    "status":"in stock",
     "date":"11/2/2021"
 }
 
