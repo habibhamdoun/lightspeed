@@ -18,17 +18,7 @@ const Featured = () => {
       </motion.h2>
       <div className='flex sm:flex-row flex-col flex-wrap justify-center items-center gap-10 '>
         {items.map((item) => {
-          if (item.featured)
-            return (
-              <Item
-                id={item.id}
-                images={item.images}
-                name={item.name}
-                price={item.price}
-                badge={item.badge != '' ? item.badge : 'none'}
-                style={item.style}
-              />
-            );
+          if (item.featured) return <Item item={item} />;
         })}
       </div>
     </section>

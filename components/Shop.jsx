@@ -51,15 +51,7 @@ const Shop = () => {
               (style === 'all' || item.style === style),
           )
           .map((item) => (
-            <Item
-              id={item.id}
-              key={item.id}
-              images={item.images}
-              name={item.name}
-              price={item.price}
-              badge={item.badge || 'none'}
-              style={item.style}
-            />
+            <Item item={item} />
           ))}
         {sortedItems
           .filter(
@@ -67,19 +59,9 @@ const Shop = () => {
               (brand === 'all' || item.brand === brand) &&
               (style === 'all' || item.style === style),
           )
-          .map((item) => (
-            <Item
-              key={item.id}
-              images={item.images}
-              name={item.name}
-              price={item.price}
-              badge={item.badge || 'none'}
-            />
-          )).length == 0 && (
-          <div className='flex flex-col items-center justify-center gap-4'>
-            <p className='text-black'>
-              Sorry, there are no products in this collection
-            </p>
+          .map((item) => <Item item={item} />).length == 0 && (
+          <div className='flex flex-col items-center justify-center gap-4 text-black'>
+            <p>Sorry, there are no products in this collection</p>
             <Image
               src={'/assets/heartCrack.svg'}
               alt='heartCrack'

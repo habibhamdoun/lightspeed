@@ -5,12 +5,11 @@ import { motion } from 'framer-motion';
 import AddToCartBtn from './AddToCartBtn';
 import PriceTag from './PriceTag';
 
-// import useCart from '@/hooks/useCart';
-
-const Item = ({ id, badge, images, name, price, style }) => {
-  const [imageSource, setImageSource] = useState(images[0]);
+const Item = ({ item }) => {
+  const [imageSource, setImageSource] = useState(item.images[0]);
   const [priceType, setPriceType] = useState('USD');
-  // const { cart, addToCart } = useCart();
+  const [selectedVariant, setSelectedVariant] = useState(item.variants[0].name);
+  const [selectedSize, setSelectedSize] = useState(item.sizes[0]);
 
   return (
     <div className='flex flex-col items-center justify-center gap-5'>
@@ -22,23 +21,21 @@ const Item = ({ id, badge, images, name, price, style }) => {
         className='flex flex-col justify-center items-start relative'
       >
         <div
-          className='relative md:w-[25vw] md:h-[25vw] w-[80vw] h-[80vw] flex flex-col justify-center items-center'
-          onMouseEnter={() => setImageSource(images[1])}
-          onMouseLeave={() => setImageSource(images[0])}
+          className='relative lg:w-[25vw] lg:h-[25vw] w-[80vw] h-[80vw] flex flex-col justify-center items-center'
+          onMouseEnter={() => setImageSource(item.images[1])}
+          onMouseLeave={() => setImageSource(item.images[0])}
         >
-          {badge != 'none' && (
+          {item.badge != 'none' && (
             <div className='z-10 absolute top-0 right-0 gradient-bg-main-rtol text-black px-2 py-1 text-lg font-bold transform translate-x-1/2 -translate-y-1/2'>
-              {badge}
+              {item.badge}
             </div>
           )}
-          <a href={`/product/${id}`}>
-            {images.map((item) => {
+          <a href={`/product/${item.id}`}>
+            {item.images.map((item) => {
               return (
                 <Image
                   src={item}
                   alt='Product picture'
-                  // width={28}
-                  // height={28}
                   layout='fill'
                   objectFit='cover'
                   className={`absolute inset-0 transition-opacity duration-700 ease-in-out shadow-lg hover:shadow-2xl ${
@@ -49,29 +46,53 @@ const Item = ({ id, badge, images, name, price, style }) => {
             })}
           </a>
         </div>
-        {/* <div className='bg-[#993639] w-[100%] md:w-[25vw] text-white text-center p-1'>
-            Select Options {'->'}
-          </div> */}
+
         <div className='flex justify-between items-center w-full m-2'>
           <div>
-            <h3 className='text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 border-b-2 border-main'>
-              {name}
+            <h3 className='text-2xl lg:text-3xl font-semibold tracking-tight text-gray-900 border-b-2 border-main'>
+              {item.name}
             </h3>
-            <p className='text-gray-400'>{style}</p>
+            <p className='text-gray-400'>{item.style}</p>
+            <div className='flex gap-2 mt-1'>
+              {item.sizes &&
+                item.sizes.map((size) => {
+                  return (
+                    <button
+                      onClick={() => setSelectedSize(size)}
+                      className={`w-10 h-10 text-xs font-bold uppercase border-2  text-black rounded-full p-2 ${
+                        selectedSize == size ? 'border-blue-600' : ''
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  );
+                })}
+            </div>
+            <div className='flex gap-2 p-2'>
+              {item.variants &&
+                item.variants.map((variant) => {
+                  return (
+                    <button
+                      onClick={() => setSelectedVariant(variant.name)}
+                      style={{ backgroundColor: variant.color }}
+                      className={`w-6 h-6 border-2  rounded-full ${
+                        selectedVariant == variant.name ? 'border-blue-600' : ''
+                      }`}
+                    ></button>
+                  );
+                })}
+            </div>
           </div>
           <div className=' flex items-center justify-center font-bold text-lg m-1 text-black'>
-            $
-            {/* <PriceTag
-                priceType={priceType}
-                setPriceType={setPriceType}
-                price={price}
-              /> */}
-            {price}
-            <AddToCartBtn id={id} />
+            ${item.price}
+            <AddToCartBtn
+              id={item.id}
+              variantName={selectedVariant}
+              size={selectedSize}
+            />
           </div>
         </div>
       </motion.div>
-      {/* </a> */}
     </div>
   );
 };

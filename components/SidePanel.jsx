@@ -4,9 +4,6 @@ import { motion } from 'framer-motion';
 import LogoutBtn from './LogoutBtn';
 
 const SidePanel = ({ isOpen, onClose }) => {
-  const logout = () => {
-    // TODO: Marshoud add function logic here
-  };
   return (
     <section>
       {isOpen && (

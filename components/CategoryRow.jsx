@@ -54,7 +54,7 @@ const CategoryRow = () => {
             key={category.id}
             title={category.title}
             imageUrl={category.imageUrl}
-            linkUrl={category.linkUrl}
+            styleRoute={category.linkUrl}
           />
         ))}
       </div>

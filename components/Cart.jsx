@@ -1,10 +1,9 @@
-'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import CartDisplay from './CartDisplay';
+import { useAppContext } from '@/context';
 
 const Cart = ({ onToggle }) => {
-  // const { cart, itemCount } = useAppContext();
+  const { itemCount } = useAppContext();
 
   return (
     <>
@@ -12,6 +11,9 @@ const Cart = ({ onToggle }) => {
         className='relative w-10 h-10 cursor-pointer'
         onClick={() => onToggle()}
       >
+        <div className='absolute bg-main text-black z-10 rounded-full top-[-10px] left-[-13px] p-[2px] w-6 h-6 text-center font-bold'>
+          {itemCount}
+        </div>
         <Image
           src={'/assets/cart.svg'}
           alt='Cart'

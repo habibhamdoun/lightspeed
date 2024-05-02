@@ -2,6 +2,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { Suspense, useEffect, useState } from 'react';
 import Search from './Search';
+import { motion } from 'framer-motion';
 
 const SidePanelFilter = ({ setBrand, setStyle }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +17,7 @@ const SidePanelFilter = ({ setBrand, setStyle }) => {
     'Sweats',
     'Leggings',
   ];
-  const brands = ['Hoodie', 'T-shirt'];
+  const brands = ['LightSpeed', 'Adidas'];
   const clearFilters = () => {
     setBrand('all');
     setSelectedBrand('all');
@@ -52,7 +53,15 @@ const SidePanelFilter = ({ setBrand, setStyle }) => {
       <Suspense>
         <Search setBrand={setSelectedBrand} setStyle={setSelectedStyle} />
       </Suspense>
-
+      {isOpen && (
+        <motion.div
+          onClick={handleToggle}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.75 }}
+          transition={{ duration: 0.5 }}
+          className='fixed top-0 left-0 w-full h-full bg-black z-20 '
+        ></motion.div>
+      )}
       <button
         onClick={handleToggle}
         className='p-3 bg-gray-200 w-full sm:w-1/2 text-gray-700 shadow hover:bg-gray-300'

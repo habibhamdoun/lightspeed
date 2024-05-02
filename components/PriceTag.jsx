@@ -1,12 +1,14 @@
-'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import rate from '@/data/rate.json';
+import PriceDisplay from './PriceDisplay';
 
-const PriceTag = ({ priceType, setPriceType, price }) => {
+const PriceTag = ({ price, discount }) => {
+  const [priceType, setPriceType] = useState('USD');
+
   return (
     <div className='flex gap-2'>
       <select
-        className='p-2 border rounded-md text-black'
+        className='p-2 border rounded-md'
         onChange={(e) => {
           setPriceType(e.target.value);
         }}
@@ -18,22 +20,7 @@ const PriceTag = ({ priceType, setPriceType, price }) => {
           🇱🇧
         </option>
       </select>
-      {priceType == 'USD' ? (
-        <div className='font-bold text-lg m-1 text-black'>
-          {price.toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD',
-          })}
-        </div>
-      ) : (
-        <div className='font-bold text-lg m-1'>
-          {(price * parseInt(rate.rate)).toLocaleString('en-LB', {
-            style: 'currency',
-            currency: 'LBP',
-            minimumFractionDigits: 0,
-          })}
-        </div>
-      )}
+      <PriceDisplay price={price} priceType={priceType} discount={discount} />
     </div>
   );
 };

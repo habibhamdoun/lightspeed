@@ -1,104 +1,190 @@
 [{
     "id":"1",
-    "img1": "/products/hoodie1.webp",
-    "img2": "/products/img1.png",
     "images":[
         "/products/hoodie1.webp",
-        "/products/img1.png",
-        "/products/img1.png",
-        "/products/img1.png",
-        "/products/img1.png",
-        "/products/img1.png"
+        "/products/img1.webp",
+        "/products/img2.webp",
+        "/products/img2.webp",
+        "/products/img2.webp",
+        "/products/img2.webp"
     ],
-    "name":"Name",
+    "name":"AOT Hoodie",
+    "sizes":["md","lg"],
+    "variants":[
+        {"name":"black",
+            "color":"#000000",
+        "src":"/products/img2.webp"
+    }
+],
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
+    
     "price": "15.99",
     "style":"Hoodie",
+    "brand":"AOT",
     "badge": "NEW",
     "featured":true,
     "date":"11/2/2023"
+    
 },
 {
     "id":"2",
-    "img1": "/products/hoodie1.webp",
-    "img2": "/products/img1.png",
     "images":[
         "/products/hoodie1.webp",
-        "/products/img1.png"
+        "/products/img1.webp"
     ],
-    "name":"Name",
+    "name":"JJK T-shirt",
+    "sizes":["md","lg"],
+    "variants":[
+        {"name":"black",
+            "color":"#000000",
+        "src":"/products/img2.webp"
+    }
+],
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "1.99",
     "style":"T-shirt",
+    "brand":"JJK",
     "badge": "none",
     "featured":true,
     "date":"11/2/2020"
 },
 {
     "id":"3",
-    "img1": "/products/hoodie1.webp",
-    "img2": "/products/img1.png",
     "images":[
         "/products/hoodie1.webp",
-        "/products/img1.png"
+        "/products/img1.webp"
     ],
-    "name":"Name",
+    "name":"hoodies T-shirt",
+    "sizes":["md","lg"],
+    "variants":[
+        {"name":"black",
+            "color":"#000000",
+        "src":"/products/img2.webp"
+    }
+    
+],
 
     
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "12.99",
     "style":"T-shirt",
+    "brand":"hoodies",
     "badge": "NEW",
     "featured":false,
     "date":"11/2/2021"
 },
 {
     "id":"4",
-    "img1": "/products/hoodie1.webp",
-    "img2": "/products/img1.png",
     "images":[
         "/products/hoodie1.webp",
-        "/products/img1.png"
+        "/products/img1.webp"
     ],
-    "name":"Name",
+    "name":"hoodies T-shirt",
+    "sizes":["md","lg"],
+    "variants":[
+        {"name":"black",
+            "color":"#000000",
+        "src":"/products/img2.webp"
+    }
+     
+],
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "12.99",
     "style":"T-shirt",
+    "brand":"hoodies",
     "badge": "NEW",
     "featured":false,
     "date":"11/2/2021"
 },
 {
     "id":"5",
-    "img1": "/products/hoodie1.webp",
-    "img2": "/products/img1.png",
     "images":[
         "/products/hoodie1.webp",
-        "/products/img1.png"
+        "/products/img1.webp"
     ],
-    "name":"Name",
+    "name":"hoodies T-shirt",
+    "sizes":["md","lg"],
+    "variants":[
+        {"name":"black",
+            "color":"#000000",
+        "src":"/products/img2.webp"
+    }
+],
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "12.99",
-    "style":"T-shirt",
+    "style":"T-Shirts",
+    "brand":"Hoodie",
     "badge": "NEW",
     "featured":false,
     "date":"11/2/2021"
 },
 {
     "id":"6",
-    "img1": "/products/hoodie1.webp",
-    "img2": "/products/img1.png",
     "images":[
         "/products/hoodie1.webp",
-        "/products/img1.png"
+        "/products/img1.webp"
     ],
-    "name":"Name",
+    "name":"hoodies T-shirt",
+    "sizes":["md","lg"],
+    "variants":[
+        {"name":"black",
+            "color":"#000000",
+        "src":"/products/img2.webp"
+    }
+],
     "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
     "price": "12.99",
     "style":"T-shirt",
+    "brand":"hoodies",
+    "badge": "NEW",
+    "featured":false,
+    "date":"11/2/2021"
+},
+{
+    "id":"7",
+    "images":[
+        "/products/hoodie1.webp",
+        "/products/img1.webp"
+    ],
+    "name":" T-shirt",
+    "sizes":["md","lg"],
+    "variants":[
+        {"name":"black",
+            "color":"#000000",
+        "src":"/products/img2.webp"
+    }
+],
+    "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
+    "price": "12.99",
+    "style":"T-shirt",
+    "brand":"Solo Leveling",
     "badge": "NEW",
     "featured":false,
     "date":"11/2/2021"
 }
+,
+{
+    "id":"8",
+    "images":[
+        "/products/hoodie1.webp",
+        "/products/img1.webp"
+    ],
+    "name":"T-shirt",
+    "sizes":["md","lg"],
+    "variants":[
+        {"name":"black",
+            "color":"#000000",
+        "src":"/products/img2.webp"
+    }
+],
+    "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta cupiditate quasi ullam est excepturi praesentium deleniti vel tempora idminus.",
+    "price": "12.99",
+    "style":"T-shirt",
+    "brand":"Naruto",
+    "badge": "NEW",
+    "featured":false,
+    "date":"11/2/2021"
+}
+
     
 ]
