@@ -85,7 +85,7 @@ const ProductTable = () => {
                   height={50}
                   className='rounded-sm'
                 />
-                <div className='flex flex-col'>
+                <span className='block flex flex-col'>
                   <span className='text-gray-900 whitespace-nowrap font-medium'>
                     {item.name}
                   </span>
@@ -93,7 +93,7 @@ const ProductTable = () => {
                   {isMobile && (
                     <span className=' font-bold'>${item.price}</span>
                   )}
-                </div>
+                </span>
               </td>
               {!isMobile && (
                 <td className='py-4 px-6 font-bold'>${item.price}</td>
