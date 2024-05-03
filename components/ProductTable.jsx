@@ -85,7 +85,7 @@ const ProductTable = () => {
                   height={50}
                   className='rounded-sm'
                 />
-                <span className='block flex flex-col'>
+                <span className='flex flex-col'>
                   <span className='text-gray-900 whitespace-nowrap font-medium'>
                     {item.name}
                   </span>

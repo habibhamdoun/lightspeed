@@ -60,7 +60,9 @@ const Item = ({ item }) => {
                     <button
                       onClick={() => setSelectedSize(size)}
                       className={`w-10 h-10 text-xs font-bold uppercase border-2  text-black rounded-full p-2 ${
-                        selectedSize == size ? 'border-blue-600' : ''
+                        selectedSize == size
+                          ? 'border-blue-600'
+                          : 'border-gray-400'
                       }`}
                     >
                       {size}
@@ -75,8 +77,10 @@ const Item = ({ item }) => {
                     <button
                       onClick={() => setSelectedVariant(variant.name)}
                       style={{ backgroundColor: variant.color }}
-                      className={`w-6 h-6 border-2  rounded-full ${
-                        selectedVariant == variant.name ? 'border-blue-600' : ''
+                      className={`w-6 h-6 border-2  rounded-full  ${
+                        selectedVariant == variant.name
+                          ? 'border-blue-600'
+                          : 'border-gray-400'
                       }`}
                     ></button>
                   );
