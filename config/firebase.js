@@ -1,5 +1,18 @@
 import { initializeApp } from 'firebase/app';
-import { getAnalytics,logEvent } from "firebase/analytics";
+import {
+  doc,
+  where,
+  setDoc,
+  getDoc,
+  getDocs,
+  Timestamp,
+  updateDoc,
+  deleteDoc,
+  collection,
+  DocumentData,
+  getFirestore,
+} from 'firebase/firestore';
+
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 
@@ -16,4 +29,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
+export const firestore = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();

@@ -25,11 +25,13 @@ const DashBoardSidePanel = ({ setSelectedSection, management }) => {
         <div className='flex  flex-col gap-2 p-2'>
           {management.map((item) => {
             return (
-              <DashBoardIItem
-                name={item.name}
-                src={item.iconUrl}
-                handleSelectSection={() => handleSelectSection(item.name)}
-              />
+              <div key={item.name}>
+                <DashBoardIItem
+                  name={item.name}
+                  src={item.iconUrl}
+                  handleSelectSection={() => handleSelectSection(item.name)}
+                />
+              </div>
             );
           })}
         </div>

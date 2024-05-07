@@ -22,7 +22,9 @@ const DashBoard = () => {
         {management.map((item) => {
           return (
             selectedSection == item.name && (
-              <DashBoardSection title={selectedSection} />
+              <div key={item.name}>
+                <DashBoardSection title={selectedSection} />
+              </div>
             )
           );
         })}

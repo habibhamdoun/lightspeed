@@ -1,8 +1,9 @@
-'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import items from '@/data/items.json';
 import { useScreenSize } from '@/hooks';
+import ProductTableCell from './ProductTableCell';
+import AddProductForm from './AddProductForm';
+import items from '@/data/items.json';
 
 const statusColor = {
   'in stock': 'bg-green-200 text-green-800',
@@ -12,8 +13,6 @@ const statusColor = {
 
 const ProductTable = () => {
   const { isMobile } = useScreenSize();
-  const [startX, setStartX] = useState(null);
-
   const handleTouchStart = (event) => {
     if (isMobile) {
       const touch = event.touches[0];
@@ -28,14 +27,11 @@ const ProductTable = () => {
 
       if (startX > endX && startX - endX > 50) {
         console.log(`Attempt to delete item with ID: ${id}`);
-        // TODO: deletion logic here
+        // TODO: Implement deletion logic
       }
 
       setStartX(null);
     }
-  };
-  const handleAddElement = () => {
-    //TODO: adding logic here
   };
 
   return (
@@ -85,31 +81,19 @@ const ProductTable = () => {
                   height={50}
                   className='rounded-sm'
                 />
-                <span className='flex flex-col'>
-                  <span className='text-gray-900 whitespace-nowrap font-medium'>
-                    {item.name}
-                  </span>
-                  <span className='text-gray-500'>{item.style}</span>
-                  {isMobile && (
-                    <span className=' font-bold'>${item.price}</span>
-                  )}
-                </span>
+                <ProductTableCell isMobile={isMobile} item={item} />
               </td>
-              {!isMobile && (
-                <td className='py-4 px-6 font-bold'>${item.price}</td>
-              )}
-              <td>
-                <div
-                  className={`p-2 text-center rounded-md ${
-                    statusColor[item.status.toLowerCase()] || ''
-                  }`}
-                >
-                  {item.status}
-                </div>
-              </td>
-              <td className='py-4 px-6 text-gray-800'>{item.date}</td>
               {!isMobile && (
                 <>
+                  <td className='py-4 px-6 font-bold'>${item.price}</td>
+                  <td
+                    className={`p-2 text-center rounded-md ${
+                      statusColor[item.status.toLowerCase()] || ''
+                    }`}
+                  >
+                    {item.status}
+                  </td>
+                  <td className='py-4 px-6 text-gray-800'>{item.date}</td>
                   <td className='py-4 px-6 text-gray-800'>{item.badge}</td>
                   <td className='py-4 px-6 text-red-500 underline font-bold'>
                     DELETE
@@ -118,18 +102,9 @@ const ProductTable = () => {
               )}
             </tr>
           ))}
-          <tr>
-            <div className='p-5'>
-              <button
-                onClick={handleAddElement}
-                className='text-6xl border-2 p-2 rounded'
-              >
-                +
-              </button>
-            </div>
-          </tr>
         </tbody>
       </table>
+      <AddProductForm />
     </div>
   );
 };
