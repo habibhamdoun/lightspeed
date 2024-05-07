@@ -1,27 +1,69 @@
-'use client';
 import React, { useState } from 'react';
-import LogoutBtn from './LogoutBtn';
-import {
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, signInWithPopup, fetchSignInMethodsForEmail } from 'firebase/auth';
 import { auth, googleProvider } from '../config/firebase';
+import { useRouter } from 'next/navigation';
+import LogoutBtn from './LogoutBtn';
+
 
 const LoginDisplay = () => {
-  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
+
+  const checkEmailExists = async (email) => {
+    const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+    return signInMethods.length > 0;
+  };
 
   const signIn = async (e) => {
+    e.preventDefault();
+    setError('');
+    const emailExists = await checkEmailExists(email);
+    if (!emailExists) {
+      setError("Email not found. Please create an account before logging in.");
+      return; 
+    }
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      if (userCredential.user.emailVerified) {
+        console.log("Email is verified");
+        router.push('/home');
+      } else {
+        setError("Your email is not verified. Please check your inbox or spam folder for the verification email.");
+        await sendEmailVerification(userCredential.user);
+      }
     } catch (err) {
-      console.error(err);
+      console.error("Login error:", err);
+      if (err.code === 'auth/wrong-password') {
+        setError("Incorrect password, please try again.");
+      } else {
+        setError(err.message);
+      }
     }
   };
+  
+
   const signInWithGoogle = async (e) => {
-    // TODO: Masrshoud put ur function here
+    e.preventDefault();  
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      if (result.user.emailVerified) {
+        console.log("Logged in with Google:", result.user);
+        router.push('/home');  
+      } else {
+        console.error("Please verify your email first.");
+        setError("Please verify your email first. Check your inbox or spam folder.");
+        await sendEmailVerification(result.user); 
+        router.push('/verify-email'); 
+      }
+    } catch (err) {
+      console.error("Google sign-in error:", err);
+      setError(err.message);
+    }
   };
+
 
   return (
     <section className='container mx-auto px-4 my-36'>
@@ -52,7 +94,7 @@ const LoginDisplay = () => {
               Password:
             </label>
             <input
-              type='text'
+              type='password'
               id='name'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -67,7 +109,8 @@ const LoginDisplay = () => {
             </a>
           </div>
           <button
-            type='submit'
+            onClick={signIn}
+            type='button'
             className=' bg-main text-black py-2 px-4 rounded text-xl font-semibold mt-2'
           >
             Submit
