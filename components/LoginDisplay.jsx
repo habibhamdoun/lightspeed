@@ -4,23 +4,49 @@ import LogoutBtn from './LogoutBtn';
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
-  signOut,
+  sendEmailVerification,
 } from 'firebase/auth';
 import { auth, googleProvider } from '../config/firebase';
+import { useRouter } from 'next/navigation'; 
 
 const LoginDisplay = () => {
-  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter();
 
   const signIn = async (e) => {
+    e.preventDefault();  
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      if (userCredential.user.emailVerified) {
+        console.log("Email is verified");
+        router.push('/home'); 
+      } else {
+        console.error("Please verify your email first.");
+        setError("Please verify your email first. Check your inbox or spam folder.");
+        await sendEmailVerification(userCredential.user);
+      }
     } catch (err) {
-      console.error(err);
+      console.error("Login error:", err);
+      setError(err.message);
     }
   };
-  const signInWithGoogle = async (e) => {
-    // TODO: Masrshoud put ur function here
+
+  const signInWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      if (result.user.emailVerified) {
+        console.log("Logged in with Google:", result.user);
+        router.push('/home'); 
+      } else {
+        setError("Please verify your email first. Check your inbox or spam folder.");
+        await sendEmailVerification(result.user); 
+      }
+    } catch (err) {
+      console.error("Google sign-in error:", err);
+      setError(err.message);
+    }
   };
 
   return (
@@ -52,7 +78,7 @@ const LoginDisplay = () => {
               Password:
             </label>
             <input
-              type='text'
+              type='password'
               id='name'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
