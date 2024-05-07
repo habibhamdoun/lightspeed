@@ -36,7 +36,6 @@ const CreateAccountDisplay = () => {
             await sendEmailVerification(userCredential.user);
             setError("Verification email sent. Please verify your email before logging in.");
             console.log("Verification email sent.");
-            
             router.push('/verify-email'); 
         } catch (err) {
             console.error("Error:", err.message);
