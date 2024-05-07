@@ -14,14 +14,15 @@ import {
 } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyCKMN807w0EFHKUDWFuh4Z3uJagBJ8Wh24',
-  authDomain: 'light-speed-530f0.firebaseapp.com',
-  projectId: 'light-speed-530f0',
-  storageBucket: 'light-speed-530f0.appspot.com',
-  messagingSenderId: '341454923978',
-  appId: '1:341454923978:web:a3d19c5a0436c12a6cec33',
-  measurementId: 'G-WZ6KPDS55M',
+  apiKey: "AIzaSyDy-t-jV9f9___ZSoelrBJu19mwiQ1YvWw",
+  authDomain: "lightspeed-8a77a.firebaseapp.com",
+  projectId: "lightspeed-8a77a",
+  storageBucket: "lightspeed-8a77a.appspot.com",
+  messagingSenderId: "545690330915",
+  appId: "1:545690330915:web:d35de7b28eeda8210fce96",
+  measurementId: "G-80XTV2HZEN"
 };
 
 const app = initializeApp(firebaseConfig);

@@ -1,21 +1,30 @@
 'use client';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {createUserWithEmailAndPassword , signInWithPopup , sendEmailVerification} from 'firebase/auth';
 import React, { useState } from 'react';
+import {auth, googleProvider} from "../config/firebase";
 
 const CreateAccountDisplay = () => {
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
 
-  const handleCreateAccount = async (e) => {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const signUpWithGoogle = async (e) => {
-    // TODO: Masrshoud put ur function here
-  };
+    const handleCreateAccount = async () => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            await sendEmailVerification(userCredential.user);
+            console.log("Verification email sent.");
+        } catch (err) {
+            console.log("Error:", err.message);
+        }
+    };
+
+    const signInWithGoogle = async () => {
+      try {
+          await signInWithPopup(auth, googleProvider);
+      } catch (err) {
+          console.log("Error:", err.message);
+      }
+    };
+
 
   return (
     <section className='container mx-auto px-4 my-36'>
@@ -48,7 +57,7 @@ const CreateAccountDisplay = () => {
               Password:
             </label>
             <input
-              type='text'
+              type='password'
               id='name'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -63,6 +72,7 @@ const CreateAccountDisplay = () => {
             </a>
           </div>
           <button
+            onClick={handleCreateAccount}
             type='submit'
             className=' bg-main text-black py-2 px-4 rounded text-xl font-semibold mt-2'
           >
@@ -72,7 +82,7 @@ const CreateAccountDisplay = () => {
           <div class='px-6 sm:px-0 max-w-sm'>
             <button
               type='button'
-              onClick={signUpWithGoogle}
+              onClick={signInWithGoogle}
               class='text-white w-full  bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-between mr-2 mb-2'
             >
               <svg
