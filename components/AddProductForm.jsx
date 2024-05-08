@@ -39,9 +39,27 @@ const AddProductForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     addProduct(product);
+    resetFields();
     console.log(product);
   };
 
+  const resetFields = () => {
+    setProduct({
+      name: '',
+      price: 0,
+      description: '',
+      images: [],
+      style: '',
+      sizes: ['md', 'lg'],
+      variants: [
+        { name: 'black', color: '#000000', src: '/products/img2.webp' },
+      ],
+      stock: 0,
+      date: new Date(),
+      badge: 'none',
+      featured: false,
+    });
+  };
   useEffect(() => {
     const updateImages = async () => {
       const imagesData = await uploadProductImages(imagesUrl);
