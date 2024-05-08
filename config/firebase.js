@@ -16,13 +16,13 @@ import {
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDy-t-jV9f9___ZSoelrBJu19mwiQ1YvWw',
-  authDomain: 'lightspeed-8a77a.firebaseapp.com',
-  projectId: 'lightspeed-8a77a',
-  storageBucket: 'lightspeed-8a77a.appspot.com',
-  messagingSenderId: '545690330915',
-  appId: '1:545690330915:web:d35de7b28eeda8210fce96',
-  measurementId: 'G-80XTV2HZEN',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
