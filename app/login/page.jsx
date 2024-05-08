@@ -1,33 +1,14 @@
 'use client';
-import Featured from '@/components/Featured';
 import '../globals.css';
-import HomePage from '@/components/HomePage';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import NavBar from '../../components/NavBar';
 import LoginDisplay from '../../components/LoginDisplay.jsx';
 import Footer from '../../components/Footer';
 
 const page = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setIsMobile(true);
-      } else {
-        setIsMobile(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
   return (
     <div>
-      <NavBar isMobile={isMobile} />
+      <NavBar />
       <LoginDisplay />
       <Footer />
     </div>
