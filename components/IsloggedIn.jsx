@@ -27,7 +27,10 @@ const IsloggedIn = () => {
   return (
     <>
       {userData ? (
-        <p className='text-sm'>Logged in as: {userData.email}.</p>
+        <p className='text-sm'>
+          Logged in as: {userData.email}.{' '}
+          {!userData.emailVerified && 'Not Verified'}
+        </p>
       ) : (
         <p>Not logged in.</p>
       )}

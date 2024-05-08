@@ -10,6 +10,8 @@ import { auth, googleProvider } from '../config/firebase';
 import VerifyEmail from './VerifyEmail';
 import { useRouter } from 'next/navigation';
 import IsloggedIn from './IsloggedIn';
+import CompleteModal from './CompleteModal';
+import LogoutBtn from './LogoutBtn';
 
 const CreateAccountDisplay = () => {
   const [email, setEmail] = useState('');
@@ -17,6 +19,8 @@ const CreateAccountDisplay = () => {
   const [error, setError] = useState('');
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [showPassword, setShowPassword] = useState('');
+  const [complete, setComplete] = useState(false);
+
   const router = useRouter();
 
   const togglePasswordVisibility = () => {
@@ -34,6 +38,9 @@ const CreateAccountDisplay = () => {
       return false;
     }
   };
+  const toggleOpen = () => {
+    setComplete((prev) => !prev);
+  };
 
   const checkEmailVerification = async () => {
     try {
@@ -41,7 +48,8 @@ const CreateAccountDisplay = () => {
       await user.reload();
       console.log('user.emailVerified: ' + user.emailVerified);
       if (user.emailVerified) {
-        router.push('/home');
+        setComplete(true);
+        setTimeout(() => router.push('/home'), 3000);
       } else {
         setError('Your email has not been verified. Please check your inbox.');
         console.log('email not verified');
@@ -65,6 +73,7 @@ const CreateAccountDisplay = () => {
         email,
         password,
       );
+      console.log('user cred: ' + JSON.stringify(userCredential.user));
       await sendEmailVerification(userCredential.user);
       checkEmailVerification();
       console.log('Verification email sent.');
@@ -91,6 +100,12 @@ const CreateAccountDisplay = () => {
   return (
     <div>
       <IsloggedIn />
+      {complete && (
+        <CompleteModal
+          toggleOpen={toggleOpen}
+          text={'Account Created Successfully'}
+        />
+      )}
       <section className='container mx-auto px-4 my-36'>
         {!isEmailVerified ? (
           <div>
@@ -131,6 +146,7 @@ const CreateAccountDisplay = () => {
                     required
                   />
                   <button
+                    type='button'
                     onClick={togglePasswordVisibility}
                     className='mt-1 text-sm text-gray-600 hover:text-black'
                   >
@@ -175,6 +191,7 @@ const CreateAccountDisplay = () => {
                     Sign Up with Google
                   </button>
                 </div>
+                <LogoutBtn />
               </div>
             </form>
           </div>
