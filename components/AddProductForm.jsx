@@ -1,5 +1,5 @@
 'use client';
-import { addProduct } from '@/config/firebase';
+import { createProduct } from '@/config/firebase';
 import React, { useState } from 'react';
 
 const AddProductForm = () => {
@@ -13,7 +13,7 @@ const AddProductForm = () => {
     variants: [{ name: 'black', color: '#000000', src: '/products/img2.webp' }],
     stock: 0,
     date: new Date(),
-    badge: '',
+    badge: 'none',
     featured: false,
   });
 
@@ -33,8 +33,7 @@ const AddProductForm = () => {
 */
   const handleSubmit = async (event) => {
     event.preventDefault();
-    addProduct(product);
-    console.log('added');
+    console.log(product);
   };
 
   const handleImageChange = (e) => {
@@ -106,8 +105,8 @@ const AddProductForm = () => {
         <input
           className='border-2 p-2'
           type='file'
-          onChange={handleImageChange}
           multiple
+          onChange={handleImageChange}
           placeholder='Upload Images'
         />
       </div>
