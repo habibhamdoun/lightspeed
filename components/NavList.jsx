@@ -1,8 +1,38 @@
-import React from 'react';
-import { usePathname } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/config/firebase';
 
 const NavList = () => {
+  const router = useRouter();
   const pathname = usePathname();
+  const handleCheckout = () => {
+    if (!userData || !userData.emailVerified) {
+      router.push('/login');
+    } else {
+      router.push('/checkout');
+    }
+  };
+  const [userData, setUserData] = useState();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        user
+          .reload()
+          .then(() => {
+            console.log('User data after reload:', user);
+            setUserData(user);
+          })
+          .catch((error) => {
+            console.error('Error reloading user data:', error);
+          });
+      } else {
+        setUserData(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
   return (
     <div className='p-4 flex gap-8 justify-center items-center'>
       <a href='/home' className='p-2 text-black group'>
@@ -27,7 +57,7 @@ const NavList = () => {
           Shop
         </h3>
       </a>
-      <a href='/checkout' className='p-2 text-black group'>
+      <button onClick={handleCheckout} className='p-2 text-black group'>
         <h3
           className={`tracking-wider text-2xl ${
             pathname != '/checkout'
@@ -37,7 +67,7 @@ const NavList = () => {
         >
           Checkout
         </h3>
-      </a>
+      </button>
       <a href='/login' className='p-2 text-black group'>
         <h3
           className={`tracking-wider text-2xl ${
