@@ -1,6 +1,5 @@
 'use client';
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import DashBoardSection from './DashBoardSection';
 import DashBoardSidePanel from './DashBoardSidePanel';
