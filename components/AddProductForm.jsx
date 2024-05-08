@@ -1,5 +1,5 @@
 'use client';
-import { createProduct } from '@/config/firebase';
+import { addProduct, createProduct } from '@/config/firebase';
 import React, { useState } from 'react';
 
 const AddProductForm = () => {
@@ -33,6 +33,7 @@ const AddProductForm = () => {
 */
   const handleSubmit = async (event) => {
     event.preventDefault();
+    addProduct(product);
     console.log(product);
   };
 
