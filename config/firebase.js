@@ -51,7 +51,7 @@ const analytics = getAnalytics(app);
 }
 */
 
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase-admin/storage';  
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';  
 
 async function uploadProductImages(imageFiles, productId) {
   try {
