@@ -43,7 +43,7 @@ const analytics = getAnalytics(app);
   "description": "Super awesome shirt!",
   "imageUrl": "https://...", 
   "images": ["https://...", "https://..."],
-  "type": "shirt",
+  "style": "shirt",
   "variants": [
     { "color": "red", "sizes": { "S": 10, "M": 5, "L": 2 }},
     { "color": "blue", "sizes": { "S": 3, "XL": 8 }} 
@@ -51,9 +51,37 @@ const analytics = getAnalytics(app);
 }
 */
 
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase-admin/storage';  
+
+async function uploadProductImages(imageFiles, productId) {
+  try {
+    const imageUrls = []; 
+
+    for (const imageFile of imageFiles) {
+      const imageName = generateImageName(imageFile); // Implement your image naming logic
+      const imageRef = ref(storage, `product_images/${productId}/${imageName}`);
+      const uploadTask = uploadBytesResumable(imageRef, imageFile);
+      await uploadTask;
+      const downloadURL = await getDownloadURL(imageRef);
+      imageUrls.push(downloadURL);
+    }
+
+    return imageUrls;
+  } catch (error) {
+    console.error("Error uploading images:", error);
+    throw error; 
+  }
+}
+
+// Helper function (optional)
+function generateImageName(imageFile) {
+  // Example: Use timestamp + original filename 
+  return `${Date.now()}_${imageFile.name}`;
+}
+
 async function createProduct(productData) {
   try {
-    // Validation Rules
+    // ---- Validation Checks ----
     if (typeof productData.name !== 'string' || productData.name.length < 6) {
       throw new Error('Product name must be a string with at least 6 characters');
     }
@@ -81,10 +109,17 @@ async function createProduct(productData) {
       }
     });
 
+    // ---- Image Upload Logic -----
+    const imageUrls = await uploadProductImages(productData.imageFiles, productData.id); 
+
+    // ---- Prepare Final Product Data ----
+    const productDataWithImages = { ...productData, imageUrls };
+
+    // ---- Create Firestore Document ----
     const productsRef = collection(db, 'products');
-    const docRef = await addDoc(productsRef, productData);
+    const docRef = await addDoc(productsRef, productDataWithImages);  
     console.log("Product created with ID: ", docRef.id);
-    return docRef.id;
+    return docRef.id; 
 
   } catch (error) {
     console.error("Error creating product:", error);
