@@ -1,8 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import items from '@/data/items.json';
-import { logEvent } from 'firebase/analytics';
-import { analytics } from '@/lib/firebase';
+// import { logEvent } from 'firebase/analytics';
+// import { analytics } from '@/lib/firebase';
 
 // TODO: Add analytics
 
