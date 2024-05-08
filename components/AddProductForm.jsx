@@ -1,6 +1,10 @@
 'use client';
-import { addProduct, createProduct } from '@/config/firebase';
-import React, { useState } from 'react';
+import {
+  addProduct,
+  createProduct,
+  uploadProductImages,
+} from '@/config/firebase';
+import React, { useEffect, useState } from 'react';
 
 const AddProductForm = () => {
   const [product, setProduct] = useState({
@@ -16,6 +20,7 @@ const AddProductForm = () => {
     badge: 'none',
     featured: false,
   });
+  const [imagesUrl, setImagesUrl] = useState([]);
 
   /*
 {
@@ -37,11 +42,20 @@ const AddProductForm = () => {
     console.log(product);
   };
 
+  useEffect(() => {
+    const updateImages = async () => {
+      const imagesData = await uploadProductImages(imagesUrl);
+      console.log('imagesUrl in update :' + imagesData);
+      setProduct((prev) => ({
+        ...prev,
+        images: imagesData,
+      }));
+    };
+    updateImages();
+  }, [imagesUrl]);
+
   const handleImageChange = (e) => {
-    setProduct((prev) => ({
-      ...prev,
-      images: [...prev.images, ...Array.from(e.target.files)],
-    }));
+    setImagesUrl((prev) => [...prev, ...Array.from(e.target.files)]);
   };
 
   const handleInputChange = (e) => {

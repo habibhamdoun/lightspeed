@@ -19,6 +19,7 @@ import {
   collection,
   DocumentData,
   getFirestore,
+  addDoc,
 } from 'firebase/firestore';
 
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
@@ -54,19 +55,19 @@ const storage = getStorage();
 }
 */
 
-export async function uploadProductImages(imageFiles, productId) {
+export async function uploadProductImages(imageFiles) {
   try {
     const imageUrls = [];
 
     for (const imageFile of imageFiles) {
       const imageName = generateImageName(imageFile);
-      const imageRef = ref(storage, `product_images/${productId}/${imageName}`);
+      const imageRef = ref(storage, `product_images/${imageName}`);
       const uploadTask = uploadBytesResumable(imageRef, imageFile);
       await uploadTask;
       const downloadURL = await getDownloadURL(imageRef);
       imageUrls.push(downloadURL);
     }
-
+    console.log(imageUrls);
     return imageUrls;
   } catch (error) {
     console.error('Error uploading images:', error);
@@ -80,16 +81,10 @@ function generateImageName(imageFile) {
 
 export async function addProduct(productData) {
   try {
-    // if (!productData.id) {
-    //   productData.id = collection(db, 'products').doc().id;
-    // }
-
-    const productRef = doc(db, 'products', productData.id);
-    await setDoc(productRef, productData);
-    // console.log(`Product ${productData.id} added successfully`);
+    const docRef = await addDoc(collection(db, 'products'), productData);
+    console.log('Product added with ID: ', docRef.id);
   } catch (error) {
     console.error('Error adding product:', error);
-    throw error;
   }
 }
 
@@ -194,7 +189,7 @@ async function deleteProduct(productId) {
     if (productSnapshot.exists() && productSnapshot.data().imageUrls) {
       const imageUrls = productSnapshot.data().imageUrls;
       for (const imageUrl of imageUrls) {
-        const imageRef = ref(storage /* Construct ref using imageUrl */);
+        const imageRef = ref(storage);
         await deleteObject(imageRef);
       }
     }
