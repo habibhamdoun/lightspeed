@@ -5,10 +5,9 @@ import DashBoardIItem from './DashBoardIItem';
 const DashBoardSidePanel = ({ setSelectedSection, management }) => {
   const handleSelectSection = (section) => {
     setSelectedSection(section);
-    // console.log(section);
   };
   return (
-    <article className='md:w-[20vw] w-[30vw] bg-black rounded-r-lg shadow-sm p-4 flex flex-col gap-4'>
+    <article className='w-fit bg-black rounded-r-lg shadow-sm p-4 flex flex-col gap-4'>
       <div>
         <Image
           src={'/assets/logowithTextWhiteCropped.png'}
