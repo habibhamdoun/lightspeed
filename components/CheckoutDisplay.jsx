@@ -379,7 +379,7 @@ const CheckoutDisplay = () => {
               onClick={() => {
                 generateDate;
               }}
-              className='w-full bg-main text-white py-2 px-4  hover:bg-[#652123] transition-colors duration-300'
+              className='w-full bg-main text-white py-2 px-4  hover:bg-black hover:text-main transition-colors duration-300'
             >
               {isLoading ? (
                 <h2 className='text-xl text-black'>Sending...</h2>

@@ -183,7 +183,7 @@ const CreateAccountDisplay = () => {
                   Create Account
                 </button>
                 <p className='text-black font-bold text-center my-5'>Or</p>
-                <div className='px-6 sm:px-0 max-w-sm'>
+                <div className=' flex flex-col px-6 sm:px-0 max-w-sm'>
                   <button
                     type='button'
                     onClick={signInWithGoogle}
@@ -206,7 +206,10 @@ const CreateAccountDisplay = () => {
                     </svg>
                     Sign Up with Google
                   </button>
-                  <button type='button' onClick={verifyEmail}>
+                  <button
+                    className='bg-main text-black py-2 px-4 rounded text-xl font-semibold mt-2'
+                    onClick={verifyEmail}
+                  >
                     Verify Email
                   </button>
                 </div>
