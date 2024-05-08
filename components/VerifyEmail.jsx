@@ -1,9 +1,7 @@
-'use client';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React from 'react';
 
-const VerifyEmail = ({ auth, checkEmailVerification }) => {
+const VerifyEmail = ({ checkEmailVerification }) => {
   return (
     <div className='w-full flex flex-col gap-3 items-center justify-center my-44'>
       <h3 className='font-bold text-2xl'>Verify Your Email</h3>

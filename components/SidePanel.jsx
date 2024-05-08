@@ -2,8 +2,32 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import LogoutBtn from './LogoutBtn';
+import { useEffect, useState } from 'react';
+import { auth } from '@/config/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import IsloggedIn from './IsloggedIn';
 
 const SidePanel = ({ isOpen, onClose }) => {
+  const [userData, setUserData] = useState();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        user
+          .reload()
+          .then(() => {
+            console.log('User data after reload:', user);
+            setUserData(user);
+          })
+          .catch((error) => {
+            console.error('Error reloading user data:', error);
+          });
+      } else {
+        setUserData(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
   return (
     <section>
       {isOpen && (
@@ -68,10 +92,17 @@ const SidePanel = ({ isOpen, onClose }) => {
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className='mt-5 text-red-500 underline'
           >
             <LogoutBtn />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.05 }}
+          >
+            <IsloggedIn />
           </motion.div>
         </div>
       </div>
