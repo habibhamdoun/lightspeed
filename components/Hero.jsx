@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useScreenSize } from '@/hooks';
 
 const Hero = () => {
-  const { isMobile } = useScreenSize();
+  const { isMobile, screenSize } = useScreenSize();
   return (
     <section>
       <motion.div
@@ -16,8 +16,8 @@ const Hero = () => {
       >
         <Image
           className='absolute grayscale h-full object-cover object-center z-[-1]'
-          width={1920}
-          height={1080}
+          width={screenSize > 2000 ? 4000 : 1920}
+          height={screenSize > 2000 ? 4000 : 1920}
           src={!isMobile ? '/assets/heroBg.jpg' : '/assets/mobilehero.jpg'}
           srcSet={`/assets/heroBg.jpg 1920w, /assets/mobilehero.jpg 480w`}
         ></Image>
