@@ -29,8 +29,8 @@ const LoginDisplay = () => {
   const checkEmailExists = async (email) => {
     try {
       const signInMethods = await fetchSignInMethodsForEmail(auth, email);
-      // console.log('signInMethods: ' + signInMethods);
-      return true;
+      console.log('signInMethods: ' + signInMethods);
+      return signInMethods.length > 0;
     } catch (err) {
       console.error('Failed to check if email exists:', err.message);
       setError(err.message);
