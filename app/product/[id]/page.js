@@ -8,7 +8,7 @@ import Footer from '@/components/Footer';
 
 const page = () => {
   const pathname = usePathname();
-  console.log(pathname);
+  // console.log(pathname);
   const id = pathname.charAt(pathname.length - 1);
   const item = items.filter((item) => item.id == id)[0];
   return (

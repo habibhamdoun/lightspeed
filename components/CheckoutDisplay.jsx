@@ -46,7 +46,7 @@ const CheckoutDisplay = () => {
     }, 3000);
   };
   useEffect(() => {
-    cart.map((item) => console.log('Cart item: ' + JSON.stringify(item)));
+    // cart.map((item) => console.log('Cart item: ' + JSON.stringify(item)));
     const loadCartDetails = async () => {
       const itemCounts = cart.reduce((acc, item) => {
         const key = `${item.itemId}-${item.variantName}-${item.size}`;
@@ -78,7 +78,7 @@ const CheckoutDisplay = () => {
     };
 
     loadCartDetails();
-    console.log('itemCount: ' + itemCount);
+    // console.log('itemCount: ' + itemCount);
 
     if (itemCount >= 3) {
       setDiscount(true);

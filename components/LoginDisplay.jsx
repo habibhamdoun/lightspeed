@@ -19,13 +19,17 @@ const LoginDisplay = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [userData, setUserData] = useState(user);
+  const [showPassword, setShowPassword] = useState('');
   const [complete, setComplete] = useState(false);
   const router = useRouter();
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const checkEmailExists = async (email) => {
     try {
       const signInMethods = await fetchSignInMethodsForEmail(auth, email);
-      console.log('signInMethods: ' + signInMethods);
+      // console.log('signInMethods: ' + signInMethods);
       return true;
     } catch (err) {
       console.error('Failed to check if email exists:', err.message);
@@ -56,7 +60,7 @@ const LoginDisplay = () => {
         password,
       );
       if (userCredential.user.emailVerified) {
-        console.log('Email is verified');
+        // console.log('Email is verified');
         setUserData(auth.currentUser);
         setComplete(true);
         setTimeout(() => router.push('/home'), 3000);
@@ -81,7 +85,7 @@ const LoginDisplay = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       if (result.user.emailVerified) {
-        console.log('Logged in with Google:', result.user);
+        // console.log('Logged in with Google:', result.user);
         router.push('/home');
       } else {
         console.error('Please verify your email first.');
@@ -142,13 +146,20 @@ const LoginDisplay = () => {
                 Password:
               </label>
               <input
-                type='password'
-                id='name'
+                type={showPassword ? 'text' : 'password'}
+                id='password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className='mt-1 block w-[50vw] md:w-[30vw] p-2 border border-gray-300 rounded-md shadow-sm'
                 required
               />
+              <button
+                type='button'
+                onClick={togglePasswordVisibility}
+                className='mt-1 text-sm text-gray-600 hover:text-black'
+              >
+                {showPassword ? 'Hide' : 'Show'} Password
+              </button>
             </div>
             <div className='text-black'>
               Don't have an account?{' '}

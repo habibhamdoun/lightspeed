@@ -26,7 +26,7 @@ const ProductTable = () => {
       const endX = touch.clientX;
 
       if (startX > endX && startX - endX > 50) {
-        console.log(`Attempt to delete item with ID: ${id}`);
+        // console.log(`Attempt to delete item with ID: ${id}`);
         // TODO: Implement deletion logic
       }
 

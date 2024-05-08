@@ -20,8 +20,23 @@ const CreateAccountDisplay = () => {
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [showPassword, setShowPassword] = useState('');
   const [complete, setComplete] = useState(false);
+  const [isChecking, setIsChecking] = useState(false);
 
   const router = useRouter();
+
+  const verifyEmail = () => {
+    const user = auth.currentUser;
+    sendEmailVerification(user);
+    try {
+      checkEmailVerification();
+      //   console.log('Verification email sent.');
+    } catch (err) {
+      console.error('Email not Verified');
+      setError(err.message);
+      return;
+    }
+    setIsEmailVerified(true);
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -30,7 +45,7 @@ const CreateAccountDisplay = () => {
   const checkIfEmailExists = async (email) => {
     try {
       const signInMethods = await fetchSignInMethodsForEmail(auth, email);
-      console.log('signInMethods: ' + signInMethods);
+      //   console.log('signInMethods: ' + signInMethods);
       return signInMethods.length > 0;
     } catch (err) {
       console.error('Failed to check if email exists:', err.message);
@@ -46,17 +61,18 @@ const CreateAccountDisplay = () => {
     try {
       const user = auth.currentUser;
       await user.reload();
-      console.log('user.emailVerified: ' + user.emailVerified);
+      //   console.log('user.emailVerified: ' + user.emailVerified);
       if (user.emailVerified) {
         setComplete(true);
-        setTimeout(() => router.push('/home'), 3000);
+        router.push('/home');
       } else {
         setError('Your email has not been verified. Please check your inbox.');
-        console.log('email not verified');
+        setTimeout(() => setIsChecking(false), 3000);
+        // console.log('email not verified');
       }
     } catch (error) {
       console.error('Verification check failed:', error);
-      setErrorMessage('Failed to verify email. Please try again.');
+      setError('Failed to verify email. Please try again.');
     }
   };
 
@@ -73,10 +89,10 @@ const CreateAccountDisplay = () => {
         email,
         password,
       );
-      console.log('user cred: ' + JSON.stringify(userCredential.user));
+      //   console.log('user cred: ' + JSON.stringify(userCredential.user));
       await sendEmailVerification(userCredential.user);
       checkEmailVerification();
-      console.log('Verification email sent.');
+      //   console.log('Verification email sent.');
     } catch (err) {
       console.error('Error:', err.message);
       setError(err.message);
@@ -164,7 +180,7 @@ const CreateAccountDisplay = () => {
                   onClick={handleCreateAccount}
                   className='bg-main text-black py-2 px-4 rounded text-xl font-semibold mt-2'
                 >
-                  Submit
+                  Create Account
                 </button>
                 <p className='text-black font-bold text-center my-5'>Or</p>
                 <div className='px-6 sm:px-0 max-w-sm'>
@@ -190,6 +206,9 @@ const CreateAccountDisplay = () => {
                     </svg>
                     Sign Up with Google
                   </button>
+                  <button type='button' onClick={verifyEmail}>
+                    Verify Email
+                  </button>
                 </div>
                 <LogoutBtn />
               </div>
@@ -199,6 +218,7 @@ const CreateAccountDisplay = () => {
           <VerifyEmail
             auth={auth}
             checkEmailVerification={checkEmailVerification}
+            text={isChecking ? 'Checking...' : 'Already Verified'}
           />
         )}
         <p

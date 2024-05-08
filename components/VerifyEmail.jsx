@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-const VerifyEmail = ({ checkEmailVerification }) => {
+const VerifyEmail = ({ checkEmailVerification, text }) => {
   return (
     <div className='w-full flex flex-col gap-3 items-center justify-center my-44'>
       <h3 className='font-bold text-2xl'>Verify Your Email</h3>
@@ -18,7 +18,7 @@ const VerifyEmail = ({ checkEmailVerification }) => {
         onClick={checkEmailVerification}
         className='bg-main text-black py-2 px-4 rounded text-xl font-semibold mt-2 hover:bg-black hover:text-main transition-colors duration-300'
       >
-        Already Verified
+        {text}
       </button>
     </div>
   );

@@ -11,7 +11,7 @@ import Cart from './Cart';
 const ItemDisplay = () => {
   const pathname = usePathname();
   const startIndex = pathname.indexOf('/', pathname.indexOf('/') + 1);
-  console.log('pathname: ' + pathname);
+  // console.log('pathname: ' + pathname);
   const id = pathname.substring(startIndex + 1);
   const item = items.filter((item) => item.id == id)[0];
   const [mainImageSrc, setMainImageSource] = useState(item.images[0]);

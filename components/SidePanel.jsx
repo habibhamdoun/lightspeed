@@ -15,7 +15,7 @@ const SidePanel = ({ isOpen, onClose }) => {
         user
           .reload()
           .then(() => {
-            console.log('User data after reload:', user);
+            // console.log('User data after reload:', user);
             setUserData(user);
           })
           .catch((error) => {

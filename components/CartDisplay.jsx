@@ -51,7 +51,7 @@ const CartDisplay = ({ isOpen, onClose }) => {
     };
 
     loadCartDetails();
-    console.log('itemCount: ' + itemCount);
+    // console.log('itemCount: ' + itemCount);
 
     if (itemCount >= 3) {
       setDiscount(true);

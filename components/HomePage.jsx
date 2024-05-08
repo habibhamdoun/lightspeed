@@ -3,16 +3,15 @@ import NavBar from './NavBar';
 import Hero from './Hero';
 import Featured from './Featured';
 import Footer from './Footer';
-import CategorySquare from './CategorySquare';
 import CategoryRow from './CategoryRow';
-import { useScreenSize } from '@/hooks';
+import IsloggedIn from './IsloggedIn';
 
 const HomePage = () => {
-  const { isMobile } = useScreenSize();
   return (
     <>
       <NavBar />
       <Hero />
+      <IsloggedIn />
       <Featured />
       <CategoryRow />
       <Footer />

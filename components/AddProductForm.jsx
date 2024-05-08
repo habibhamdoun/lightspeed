@@ -40,7 +40,7 @@ const AddProductForm = () => {
       });
       if (!response.ok) throw new Error(await response.text());
       const result = await response.json();
-      console.log('Product added:', result);
+      // console.log('Product added:', result);
       // Clear form or redirect, etc.
     } catch (error) {
       console.error('Error adding product:', error.message);
