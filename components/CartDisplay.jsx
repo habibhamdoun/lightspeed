@@ -137,7 +137,7 @@ const CartDisplay = ({ isOpen, onClose }) => {
                 <h2 className='text-xl'>CHECK OUT</h2>
               </button>
               <button
-                onClick={() => isOpen(!isOpen)}
+                onClick={onClose}
                 className='mt-4 bg-gray-300 text-black w-full py-2 rounded-lg shadow hover:bg-gray-400 transition duration-500'
               >
                 <h3 className='text-xl'>CONTINUE SHOPPING</h3>
