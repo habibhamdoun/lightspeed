@@ -19,7 +19,7 @@ const CartDisplay = ({ isOpen, onClose }) => {
   const [dicsount, setDiscount] = useState(false);
 
   useEffect(() => {
-    cart.map((item) => console.log('Cart item: ' + JSON.stringify(item)));
+    // cart.map((item) => console.log('Cart item: ' + JSON.stringify(item)));
     const loadCartDetails = async () => {
       const itemCounts = cart.reduce((acc, item) => {
         const key = `${item.itemId}-${item.variantName}-${item.size}`;

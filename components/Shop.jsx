@@ -1,16 +1,18 @@
 'use client';
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import items from '@/data/items.json';
 import SidePanelFilter from './SidePanelFilter';
 import Image from 'next/image';
 import Item from './Item';
 import SortingBtn from './SortingBtn';
 import Search from './Search';
+import { getAllProducts } from '@/config/firebase';
 
 const Shop = () => {
   const [brand, setBrand] = useState('all');
   const [style, setStyle] = useState('all');
   const [option, setOption] = useState('default');
+  const [itemsDisplay, setItemsDisplay] = useState([]);
 
   const getSortedItems = (items, option) => {
     switch (option) {
@@ -27,7 +29,15 @@ const Shop = () => {
         );
     }
   };
-  const sortedItems = getSortedItems(items, option);
+  useEffect(() => {
+    const displayProducts = async () => {
+      const itemsData = await getAllProducts();
+      setItemsDisplay(itemsData);
+      console.log('itemsData: ' + JSON.stringify(itemsData));
+    };
+    displayProducts();
+  });
+  const sortedItems = getSortedItems(itemsDisplay, option);
   return (
     <section className='flex flex-col'>
       <Suspense>

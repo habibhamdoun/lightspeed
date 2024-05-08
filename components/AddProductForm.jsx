@@ -1,4 +1,5 @@
 'use client';
+import { addProduct } from '@/config/firebase';
 import React, { useState } from 'react';
 
 const AddProductForm = () => {
@@ -6,65 +7,40 @@ const AddProductForm = () => {
     name: '',
     price: 0,
     description: '',
-    type: '',
-    imageUrl: '',
-    images: [], // Array to handle multiple image URLs
+    images: [],
+    style: '',
+    sizes: ['md', 'lg'],
+    variants: [{ name: 'black', color: '#000000', src: '/products/img2.webp' }],
     stock: 0,
-    variants: {}, // Object to handle multiple color and size options
+    date: new Date(),
+    badge: '',
+    featured: false,
   });
 
+  /*
+{
+  "name": "Cool T-Shirt",
+  "price": 19.99,
+  "description": "Super awesome shirt!",
+  "imageUrl": "https://...", 
+  "images": ["https://...", "https://..."],
+  "style": "shirt",
+  "variants": [
+    { "color": "red", "sizes": { "S": 10, "M": 5, "L": 2 }},
+    { "color": "blue", "sizes": { "S": 3, "XL": 8 }} 
+  ]
+}
+*/
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append('name', product.name);
-    formData.append('price', product.price);
-    formData.append('description', product.description);
-    formData.append('type', product.type);
-    formData.append('stock', product.stock);
-    product.images.forEach((image) => {
-      formData.append('images', image);
-    });
-    Object.keys(product.variants).forEach((color) => {
-      Object.keys(product.variants[color]).forEach((size) => {
-        formData.append(
-          `variants[${color}][${size}]`,
-          product.variants[color][size],
-        );
-      });
-    });
-
-    try {
-      const response = await fetch('/api/products', {
-        method: 'POST',
-        body: formData,
-      });
-      if (!response.ok) throw new Error(await response.text());
-      const result = await response.json();
-      // console.log('Product added:', result);
-      // Clear form or redirect, etc.
-    } catch (error) {
-      console.error('Error adding product:', error.message);
-    }
+    addProduct(product);
+    console.log('added');
   };
 
   const handleImageChange = (e) => {
     setProduct((prev) => ({
       ...prev,
       images: [...prev.images, ...Array.from(e.target.files)],
-    }));
-  };
-
-  const handleVariantChange = (e, color, size) => {
-    const value = Number(e.target.value);
-    setProduct((prev) => ({
-      ...prev,
-      variants: {
-        ...prev.variants,
-        [color]: {
-          ...(prev.variants[color] || {}),
-          [size]: value,
-        },
-      },
     }));
   };
 
@@ -146,24 +122,7 @@ const AddProductForm = () => {
           placeholder='Total Stock'
         />
       </div>
-      <div>
-        <label className='flex flex-col'>Black - M:</label>
-        <input
-          className='border-2 p-2'
-          type='number'
-          onChange={(e) => handleVariantChange(e, 'Black', 'M')}
-          placeholder='Quantity for Black M'
-        />
-      </div>
-      <div>
-        <label className='flex flex-col'>White - S:</label>
-        <input
-          className='border-2 p-2'
-          type='number'
-          onChange={(e) => handleVariantChange(e, 'White', 'S')}
-          placeholder='Quantity for White S'
-        />
-      </div>
+
       <button
         type='submit'
         className='border-2 p-2 hover:bg-gray-500 hover:text-white transition-colors duration-300'

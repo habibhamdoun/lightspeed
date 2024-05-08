@@ -31,7 +31,14 @@ const page = () => {
       {userData && userData.email == 'habibhamdoun@gmail.com' ? (
         <DashBoard />
       ) : (
-        <div>Only Admins can access this page</div>
+        <div>
+          <div>Only Admins can access this page</div>
+          Login to admin
+          <a href='/login' className='underline text-blue-500'>
+            {' '}
+            here
+          </a>
+        </div>
       )}
     </>
   );
